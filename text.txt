@@ -1,0 +1,52 @@
+Alemanha [Alemanha] <civ> PROP F S @VOK
+
+o [o] <artd> DET M S @>N
+presidente [presidente] <Hprof> N M S @SUBJ>
+de [de] <sam-> PRP @N<
+a [o] <-sam> <artd> DET F S @>N
+Alemanha [Alemanha] <civ> PROP F S @P<
+,
+Horst Koehler [Horst=Koehler] <hum> PROP M S @APP
+,
+renunciou [renunciar] <fmc> <vi> V PS 3S IND VFIN @FMV
+ontem [ontem] <atemp> ADV @<ADVL
+.
+o [o] <artd> DET M S @>N
+motivo [motivo] <ac> N M S @SUBJ>
+seriam [ser] <fmc> <vK> V COND 3P VFIN @FMV
+as [o] <artd> DET F P @>N
+críticas [crítica] <act-s> N F P @<SC
+provocadas [provocar] <vt> V PCP F P @IMV @#ICL-N<
+por [por] <sam-> PRP @<ADVL
+os [o] <-sam> <artd> DET M P @>N
+comentários [comentário] <sem-r> N M P @P<
+de [de] <sam-> PRP @N<
+ele [ele] <-sam> PERS M 3S NOM/PIV @P<
+sobre [sobre] PRP @<ADVL
+a [o] <artd> DET F S @>N
+missão [missão] <sem-c> <HH> <occ> N F S @P<
+militar [militar] ADJ F S @N<
+alemã [alemã] ADJ F S @N<
+em [em] <sam-> PRP @<ADVL
+o [o] <-sam> <artd> DET M S @>N
+afeganistão [Afeganistão] <civ> PROP M S @P<
+.
+em [em] <sam-> PRP @ADVL>
+a [o] <-sam> <artd> DET F S @>N
+Alemanha [Alemanha] <civ> PROP F S @P<
+,
+o [o] <artd> DET M S @>N
+presidente [presidente] <Hprof> N M S @SUBJ>
+é [ser] <fmc> <vK> V PR 3S IND VFIN @FMV
+o [o] <artd> DET M S @>N
+equivalente [equivalente] N M S @<SC
+a [a] <sam-> PRP @<ADVL
+o [o] <-sam> <artd> DET M S @>N
+ministro [ministro] <Hprof> <Htit> N M S @P<
+de [de] <sam-> PRP @N<
+a [o] <-sam> <artd> DET F S @>N
+Casa Civil [Casa=Civil] <inst> PROP F S @P<
+em [em] <sam-> PRP @N<
+o [o] <-sam> <artd> DET M S @>N
+Brasil [Brasil] <civ> PROP M S @P<
+.
