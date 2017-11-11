@@ -22,8 +22,8 @@ public class Principal {
 		Document document = new DocumentImpl();
 
 		/* processando texto sobre esportes */
-		document.setText(leitor.LerArquivoDeEsportes());
-		System.out.println(document.getText());
+		// document.setText(leitor.LerArquivoDeEsportes());
+		document.setText(leitor.LerArquivoDeTeste());
 		cogroo.analyze(document);
 
 		// TODO: adicionar os outros texto mais tarde!
@@ -32,8 +32,10 @@ public class Principal {
 		for (Sentence sentence : document.getSentences()) {
 			for (Token token : sentence.getTokens()) {
 				token.getLemmas(); // array com os possíveis lemas
-				if (token.getLemmas().length != 0)
-					token.getLemmas();
+				if (token.getLemmas().length != 0) {
+					System.out.println(token.getLemmas()[0]);
+					System.out.println(token.getPOSTag());
+				}
 			}
 		}
 	}
