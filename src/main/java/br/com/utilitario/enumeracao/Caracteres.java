@@ -29,7 +29,7 @@ public enum Caracteres {
 	public static String removeCaracteres(String linha) {
 		for (Caracteres caractere : Caracteres.values()) {
 			if (linha.toLowerCase().contains(caractere.getValor())) {
-				linha = linha.replace(caractere.getValor(), "");
+				linha = linha.replace(caractere.getValor(), " ");
 			}
 		}
 		return linha;

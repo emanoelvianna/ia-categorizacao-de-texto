@@ -31,7 +31,7 @@ public enum TagsHtml {
 	public static String removeHtml(String linha) {
 		for (TagsHtml tag : TagsHtml.values()) {
 			if (linha.toLowerCase().contains(tag.getValor())) {
-				linha = linha.replace(tag.getValor(), "");
+				linha = linha.replace(tag.getValor(), " ");
 			}
 		}
 		return linha;
