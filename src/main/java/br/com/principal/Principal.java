@@ -20,16 +20,20 @@ public class Principal {
 		/* processar texto */
 		LerArquivoTexto leitor = new LerArquivoTexto();
 		Document document = new DocumentImpl();
-		/* processando texto sobre teste */
+
+		/* processando texto sobre esportes */
 		document.setText(leitor.LerArquivoDeTeste());
+		System.out.println(document.getText());
 		cogroo.analyze(document);
+
+		// TODO: adicionar os outros texto mais tarde!
 
 		/* lista de sentenças */
 		for (Sentence sentence : document.getSentences()) {
 			for (Token token : sentence.getTokens()) {
 				token.getLemmas(); // array com os possíveis lemas
 				if (token.getLemmas().length != 0)
-					System.out.println(token.getLemmas()[0]);
+					token.getLemmas();
 			}
 		}
 	}
