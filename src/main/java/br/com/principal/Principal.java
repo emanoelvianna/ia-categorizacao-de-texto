@@ -22,7 +22,7 @@ public class Principal {
 		Document document = new DocumentImpl();
 
 		/* processando texto sobre esportes */
-		document.setText(leitor.LerArquivoDeTeste());
+		document.setText(leitor.LerArquivoDeEsportes());
 		System.out.println(document.getText());
 		cogroo.analyze(document);
 
