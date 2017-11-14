@@ -21,6 +21,6 @@ public class TermoRelevante {
 	}
 
 	public void repetiuTermo() {
-		this.repeticao = this.repeticao++;
+		this.repeticao++;
 	}
 }
