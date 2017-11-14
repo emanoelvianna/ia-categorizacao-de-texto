@@ -5,7 +5,7 @@ public class TermoRelevante {
 	private Integer repeticao;
 
 	public TermoRelevante() {
-		this.repeticao = 0;
+		this.repeticao = 1;
 	}
 
 	public String getTermo() {
