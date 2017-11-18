@@ -1,5 +1,8 @@
 package br.com.principal;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -100,6 +103,19 @@ public class Principal {
 		return termosRelevantes;
 	}
 	
+	
+	public static void list2file(List<TermoRelevante> lista, String outfile) throws IOException {
+		FileWriter outWriter = new FileWriter(outfile);
+		
+		PrintWriter out = new PrintWriter(outWriter);
+		
+		for(TermoRelevante t : lista) {
+			out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
+		}
+		
+		outWriter.close();
+	}
+	
 
 	public static void main(String[] args) {
 		/* configurações de idioma */
@@ -113,37 +129,25 @@ public class Principal {
 		// TODO: adicionar os outros texto mais tarde!
 		
 		/* processando texto sobre esportes */
-		//document.setText(leitor.LerArquivoDeEsportes());
-		document.setText(leitor.LerArquivoDeTeste());
+		document.setText(leitor.LerArquivoDeEsportes());
+		//document.setText(leitor.LerArquivoDeTeste());
 		cogroo.analyze(document);
 
 		List<TermoRelevante> termosEsportes_n1 = listarTermos(document, 1);
 		List<TermoRelevante> termosEsportes_n2 = listarTermos(document, 2);
 		List<TermoRelevante> termosEsportes_n3 = listarTermos(document, 3);
 		
+		Collections.sort(termosEsportes_n1);
+		Collections.sort(termosEsportes_n2);
+		Collections.sort(termosEsportes_n3);
+		
 		/* lista de sentenças */
-		System.out.println("\n\nListagem de termos / repeticao -- n = 1");
-		//Collections.sort(termosEsportes_n1);
-		
-		for(TermoRelevante t : termosEsportes_n1) {
-			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
-		}
-	
-
-		System.out.println("\n\nListagem de termos / repeticao -- n = 2");
-		//Collections.sort(termosEsportes_n1);
-
-	
-		for(TermoRelevante t : termosEsportes_n2) {
-			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
-		}
-		
-
-		System.out.println("\n\nListagem de termos / repeticao -- n = 3");
-		//Collections.sort(termosEsportes_n1);
-		
-		for(TermoRelevante t : termosEsportes_n3) {
-			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
+		try {
+			list2file(termosEsportes_n1, "output/esportes_n1.txt");
+			list2file(termosEsportes_n2, "output/esportes_n2.txt");
+			list2file(termosEsportes_n3, "output/esportes_n3.txt");
+		} catch(IOException e) {
+			System.out.println("Falha ao escrever arquivos de saida!");
 		}
 	}
 }
