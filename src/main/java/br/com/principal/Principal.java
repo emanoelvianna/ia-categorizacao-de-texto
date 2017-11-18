@@ -1,6 +1,7 @@
 package br.com.principal;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -13,6 +14,7 @@ import org.cogroo.text.impl.DocumentImpl;
 
 import br.com.utilitario.LerArquivoTexto;
 import br.com.utilitario.TermoRelevante;
+import br.com.utilitario.enumeracao.Classificacao;
 
 public class Principal {
 	
@@ -55,9 +57,28 @@ public class Principal {
 						} 
 					}
 
-					if(!termoEncontrado) {					
-						System.out.println("** Adicionando token " + token.getLemmas()[0]);
-						maisRelevantes.add(new TermoRelevante(token.getLemmas()[0]));
+					if(!termoEncontrado) {
+						Classificacao classificacao = Classificacao.NULO;
+						
+						if(token.getPOSTag().equalsIgnoreCase("adv"))
+							classificacao = Classificacao.ADVERBIO;
+						else if(token.getPOSTag().equalsIgnoreCase("v-fin"))
+							classificacao = Classificacao.VERBO;
+						else if(token.getPOSTag().equalsIgnoreCase("art"))
+							classificacao = Classificacao.ARTIGO;
+						else if(token.getPOSTag().equalsIgnoreCase("n"))
+							classificacao = Classificacao.SUBSTANTIVO;
+						else if(token.getPOSTag().equalsIgnoreCase("prp"))
+							classificacao = Classificacao.PREPOSICAO;
+						else if(token.getPOSTag().equalsIgnoreCase("adj"))
+							classificacao = Classificacao.ADJETIVO;
+						else if(token.getPOSTag().equals("."))
+							classificacao = Classificacao.PONTO;
+						else if(token.getPOSTag().equalsIgnoreCase("pron-det"))
+							classificacao = Classificacao.PRONOME_DETERMINATIVO;
+						
+						System.out.println("** Adicionando token " + token.getLemmas()[0] + "[" + classificacao + "]");
+						maisRelevantes.add(new TermoRelevante(token.getLemmas()[0], classificacao));
 					}
 	
 					/*
@@ -74,9 +95,9 @@ public class Principal {
 			}
 		}
 		System.out.println("Listagem de termos / repeticao");
-		
+		Collections.sort(maisRelevantes);
 		for(TermoRelevante t : maisRelevantes) {
-			System.out.println(t.getTermo() + "[" + t.getRepeticao() + "]");
+			System.out.println(t.getTermo() + "[" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
 		}
 	}
 }
