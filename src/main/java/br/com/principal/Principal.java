@@ -18,10 +18,70 @@ import br.com.utilitario.enumeracao.Classificacao;
 
 public class Principal {
 	
+	/* Processa um texto e retorna lista ordenada de termos relevantes baseado em frequencia */
+	public static List<TermoRelevante> listarTermos(Document document) {
+		List<TermoRelevante> termosRelevantes = new ArrayList<TermoRelevante>();
+		boolean termoEncontrado;
+
+		for (Sentence sentence : document.getSentences()) {
+			
+			for (Token token : sentence.getTokens()) {
+				token.getLemmas(); // array com os possíveis lemas
+
+				if (token.getLemmas().length != 0) {
+					//System.out.println("Token = " + token.getLemmas()[0] + " -- [" + token.getPOSTag() + "]");
+					
+					termoEncontrado = false;
+
+					for(int i = 0; i < termosRelevantes.size(); i++) {
+						if(termosRelevantes.get(i).getTermo().compareToIgnoreCase(token.getLemmas()[0]) == 0) {
+							termosRelevantes.get(i).repetiuTermo();
+							termoEncontrado = true;
+							break;
+						} 
+					}
+
+					if(!termoEncontrado) {
+						Classificacao classificacao = Classificacao.NULO;
+						
+						String aux = token.getPOSTag();
+						
+						if(aux.equalsIgnoreCase("adv"))
+							classificacao = Classificacao.ADVERBIO;
+						else if(aux.equals("v-fin") || (aux.equals("v-fin") 
+								|| (aux.equals("v-pcp")) || aux.equals("v-inf")) 
+								|| (aux.equals("v-ger")))
+							classificacao = Classificacao.VERBO;
+						else if(aux.equals("art"))
+							classificacao = Classificacao.ARTIGO;
+						else if(aux.equals("n"))
+							classificacao = Classificacao.SUBSTANTIVO;
+						else if(aux.equals("prp"))
+							classificacao = Classificacao.PREPOSICAO;
+						else if(aux.equals("adj") || (aux.equals("n-adj")))
+							classificacao = Classificacao.ADJETIVO;
+						else if(aux.equals(",") || aux.equals(":") || aux.equals("."))
+							classificacao = Classificacao.PONTO;
+						else if(aux.equals("pron-det") || (aux.equals("pron-indp")) || (aux.equals("pron-pers")))
+							classificacao = Classificacao.PRONOME;
+						else if(aux.equals("conj-c") || (aux.equals("conj-s")))
+							classificacao = Classificacao.CONJUNCAO;
+						else if(aux.equals("num"))
+							classificacao = Classificacao.NUMERO;
+						
+						//System.out.println("** Adicionando token " + token.getLemmas()[0] + "[" + classificacao + "]");
+						termosRelevantes.add(new TermoRelevante(token.getLemmas()[0], classificacao));
+					}
+				}
+			}
+		}
+		
+		return termosRelevantes;
+	}
+	
 
 	public static void main(String[] args) {
 		List<TermoRelevante> maisRelevantes = new ArrayList<TermoRelevante>();
-		boolean termoEncontrado;
 		
 		/* configurações de idioma */
 		ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
@@ -34,70 +94,18 @@ public class Principal {
 		// TODO: adicionar os outros texto mais tarde!
 		
 		/* processando texto sobre esportes */
-		// document.setText(leitor.LerArquivoDeEsportes());
-		document.setText(leitor.LerArquivoDeTeste());
+		document.setText(leitor.LerArquivoDeEsportes());
+		//document.setText(leitor.LerArquivoDeTeste());
 		cogroo.analyze(document);
 
+		List<TermoRelevante> termosEsportes = listarTermos(document);
+		
 		/* lista de sentenças */
-		for (Sentence sentence : document.getSentences()) {
-			
-			for (Token token : sentence.getTokens()) {
-				token.getLemmas(); // array com os possíveis lemas
-
-				if (token.getLemmas().length != 0) {
-					System.out.println("Token = " + token.getLemmas()[0] + " -- [" + token.getPOSTag() + "]");
-					
-					termoEncontrado = false;
-
-					for(int i = 0; i < maisRelevantes.size(); i++) {
-						if(maisRelevantes.get(i).getTermo().compareToIgnoreCase(token.getLemmas()[0]) == 0) {
-							maisRelevantes.get(i).repetiuTermo();
-							termoEncontrado = true;
-							break;
-						} 
-					}
-
-					if(!termoEncontrado) {
-						Classificacao classificacao = Classificacao.NULO;
-						
-						if(token.getPOSTag().equalsIgnoreCase("adv"))
-							classificacao = Classificacao.ADVERBIO;
-						else if(token.getPOSTag().equalsIgnoreCase("v-fin"))
-							classificacao = Classificacao.VERBO;
-						else if(token.getPOSTag().equalsIgnoreCase("art"))
-							classificacao = Classificacao.ARTIGO;
-						else if(token.getPOSTag().equalsIgnoreCase("n"))
-							classificacao = Classificacao.SUBSTANTIVO;
-						else if(token.getPOSTag().equalsIgnoreCase("prp"))
-							classificacao = Classificacao.PREPOSICAO;
-						else if(token.getPOSTag().equalsIgnoreCase("adj"))
-							classificacao = Classificacao.ADJETIVO;
-						else if(token.getPOSTag().equals("."))
-							classificacao = Classificacao.PONTO;
-						else if(token.getPOSTag().equalsIgnoreCase("pron-det"))
-							classificacao = Classificacao.PRONOME_DETERMINATIVO;
-						
-						System.out.println("** Adicionando token " + token.getLemmas()[0] + "[" + classificacao + "]");
-						maisRelevantes.add(new TermoRelevante(token.getLemmas()[0], classificacao));
-					}
-	
-					/*
-					if (!maisRelevantes.contains(token.getPOSTag())) {
-						TermoRelevante termo = new TermoRelevante();
-						termo.setTermo(token.getPOSTag());
-						maisRelevantes.add(termo);
-					} else {
-						int indexOf = maisRelevantes.indexOf(token.getPOSTag());
-						maisRelevantes.get(indexOf).repetiuTermo();
-					}
-					*/
-				}
-			}
-		}
-		System.out.println("Listagem de termos / repeticao");
-		Collections.sort(maisRelevantes);
-		for(TermoRelevante t : maisRelevantes) {
-			System.out.println(t.getTermo() + "[" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
+		System.out.println("\n\nListagem de termos / repeticao");
+		Collections.sort(termosEsportes);
+		
+		for(TermoRelevante t : termosEsportes) {
+			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
 		}
 	}
 }
