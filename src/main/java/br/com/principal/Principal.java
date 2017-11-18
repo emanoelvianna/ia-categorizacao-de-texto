@@ -19,22 +19,44 @@ import br.com.utilitario.enumeracao.Classificacao;
 public class Principal {
 	
 	/* Processa um texto e retorna lista ordenada de termos relevantes baseado em frequencia */
-	public static List<TermoRelevante> listarTermos(Document document) {
+	public static List<TermoRelevante> listarTermos(Document document, int n) {
 		List<TermoRelevante> termosRelevantes = new ArrayList<TermoRelevante>();
 		boolean termoEncontrado;
 
-		for (Sentence sentence : document.getSentences()) {
+		Sentence sentence = null;
+		Token token = null;
+		String termo = null;
+		
+		for(int s = 0; s < document.getSentences().size(); s++) {
+			sentence = document.getSentences().get(s);
 			
-			for (Token token : sentence.getTokens()) {
+			for(int t = 0; t < sentence.getTokens().size(); t++) {
+				token = sentence.getTokens().get(t);
 				token.getLemmas(); // array com os possíveis lemas
 
+				termo = "";
 				if (token.getLemmas().length != 0) {
-					//System.out.println("Token = " + token.getLemmas()[0] + " -- [" + token.getPOSTag() + "]");
+					if(n == 1) {
+						termo = sentence.getTokens().get(t).getLexeme().toLowerCase();
+					} else if(n == 2) {
+						if((t + 2) < sentence.getTokens().size()) {
+							termo = token.getLexeme().toLowerCase() + " " 
+									+ sentence.getTokens().get(t+1).getLexeme().toLowerCase();
+						}
+					} else if(n == 3) {
+						if((t + 3) < sentence.getTokens().size()) {
+							termo = token.getLexeme().toLowerCase() + " " 
+									+ sentence.getTokens().get(t+1).getLexeme().toLowerCase() + " "
+									+ sentence.getTokens().get(t+2).getLexeme().toLowerCase();
+						}
+					}
+					
+					System.out.println("Token = " + termo + " -- [" + token.getPOSTag() + "]");
 					
 					termoEncontrado = false;
 
 					for(int i = 0; i < termosRelevantes.size(); i++) {
-						if(termosRelevantes.get(i).getTermo().compareToIgnoreCase(token.getLemmas()[0]) == 0) {
+						if(termosRelevantes.get(i).getTermo().compareToIgnoreCase(termo) == 0) {
 							termosRelevantes.get(i).repetiuTermo();
 							termoEncontrado = true;
 							break;
@@ -70,19 +92,16 @@ public class Principal {
 							classificacao = Classificacao.NUMERO;
 						
 						//System.out.println("** Adicionando token " + token.getLemmas()[0] + "[" + classificacao + "]");
-						termosRelevantes.add(new TermoRelevante(token.getLemmas()[0], classificacao));
+						termosRelevantes.add(new TermoRelevante(termo, classificacao));
 					}
 				}
 			}
 		}
-		
 		return termosRelevantes;
 	}
 	
 
 	public static void main(String[] args) {
-		List<TermoRelevante> maisRelevantes = new ArrayList<TermoRelevante>();
-		
 		/* configurações de idioma */
 		ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
 		Analyzer cogroo = factory.createPipe();
@@ -94,17 +113,36 @@ public class Principal {
 		// TODO: adicionar os outros texto mais tarde!
 		
 		/* processando texto sobre esportes */
-		document.setText(leitor.LerArquivoDeEsportes());
-		//document.setText(leitor.LerArquivoDeTeste());
+		//document.setText(leitor.LerArquivoDeEsportes());
+		document.setText(leitor.LerArquivoDeTeste());
 		cogroo.analyze(document);
 
-		List<TermoRelevante> termosEsportes = listarTermos(document);
+		List<TermoRelevante> termosEsportes_n1 = listarTermos(document, 1);
+		List<TermoRelevante> termosEsportes_n2 = listarTermos(document, 2);
+		List<TermoRelevante> termosEsportes_n3 = listarTermos(document, 3);
 		
 		/* lista de sentenças */
-		System.out.println("\n\nListagem de termos / repeticao");
-		Collections.sort(termosEsportes);
+		System.out.println("\n\nListagem de termos / repeticao -- n = 1");
+		//Collections.sort(termosEsportes_n1);
 		
-		for(TermoRelevante t : termosEsportes) {
+		for(TermoRelevante t : termosEsportes_n1) {
+			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
+		}
+	
+
+		System.out.println("\n\nListagem de termos / repeticao -- n = 2");
+		//Collections.sort(termosEsportes_n1);
+
+	
+		for(TermoRelevante t : termosEsportes_n2) {
+			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
+		}
+		
+
+		System.out.println("\n\nListagem de termos / repeticao -- n = 3");
+		//Collections.sort(termosEsportes_n1);
+		
+		for(TermoRelevante t : termosEsportes_n3) {
 			System.out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
 		}
 	}
