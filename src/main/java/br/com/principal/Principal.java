@@ -15,10 +15,12 @@ import br.com.utilitario.LerArquivoTexto;
 import br.com.utilitario.TermoRelevante;
 
 public class Principal {
+	
 
 	public static void main(String[] args) {
 		List<TermoRelevante> maisRelevantes = new ArrayList<TermoRelevante>();
-
+		boolean termoEncontrado;
+		
 		/* configurações de idioma */
 		ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
 		Analyzer cogroo = factory.createPipe();
@@ -36,10 +38,29 @@ public class Principal {
 
 		/* lista de sentenças */
 		for (Sentence sentence : document.getSentences()) {
+			
 			for (Token token : sentence.getTokens()) {
 				token.getLemmas(); // array com os possíveis lemas
+
 				if (token.getLemmas().length != 0) {
-					/* classificar os termos mais relevantes */
+					System.out.println("Token = " + token.getLemmas()[0] + " -- [" + token.getPOSTag() + "]");
+					
+					termoEncontrado = false;
+
+					for(int i = 0; i < maisRelevantes.size(); i++) {
+						if(maisRelevantes.get(i).getTermo().compareToIgnoreCase(token.getLemmas()[0]) == 0) {
+							maisRelevantes.get(i).repetiuTermo();
+							termoEncontrado = true;
+							break;
+						} 
+					}
+
+					if(!termoEncontrado) {					
+						System.out.println("** Adicionando token " + token.getLemmas()[0]);
+						maisRelevantes.add(new TermoRelevante(token.getLemmas()[0]));
+					}
+	
+					/*
 					if (!maisRelevantes.contains(token.getPOSTag())) {
 						TermoRelevante termo = new TermoRelevante();
 						termo.setTermo(token.getPOSTag());
@@ -48,8 +69,14 @@ public class Principal {
 						int indexOf = maisRelevantes.indexOf(token.getPOSTag());
 						maisRelevantes.get(indexOf).repetiuTermo();
 					}
+					*/
 				}
 			}
+		}
+		System.out.println("Listagem de termos / repeticao");
+		
+		for(TermoRelevante t : maisRelevantes) {
+			System.out.println(t.getTermo() + "[" + t.getRepeticao() + "]");
 		}
 	}
 }
