@@ -12,6 +12,29 @@ public class LerArquivoTexto {
 		this.limparArquivoTexto = new LimparArquivoTexto();
 	}
 
+	
+	public String LerArquivoDeTexto(String arquivo) {
+		StringBuffer texto = new StringBuffer();
+		
+		try {
+			BufferedReader info = new BufferedReader(new FileReader(arquivo));
+			String linha = info.readLine();
+			// TODO: Tratar o arquivo de texto antes de retornar!
+			while (linha != null) {
+				texto.append(this.limparLinha(linha));
+				linha = info.readLine();
+			}
+			info.close();
+		} catch (IOException e) {
+			System.out.println("Erro ao abrir arquivo de esportes");
+		} finally {
+			
+		}
+		return texto.toString();
+	}
+
+	
+	
 	public String LerArquivoDeEsportes() {
 		StringBuffer texto = new StringBuffer();
 		try {

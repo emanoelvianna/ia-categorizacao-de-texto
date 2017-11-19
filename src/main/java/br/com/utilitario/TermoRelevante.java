@@ -6,6 +6,7 @@ public class TermoRelevante implements Comparable {
 	private String termo;
 	private Integer repeticao;
 	private Classificacao classificacao;
+	private Integer[] categorias;
 
 	public TermoRelevante() {
 		this.repeticao = 1;
@@ -15,6 +16,12 @@ public class TermoRelevante implements Comparable {
 		this.termo = termo;
 		this.repeticao = 1;
 		this.classificacao = classificacao;
+		this.categorias = new Integer[4];
+		
+		this.categorias[0] = 0;
+		this.categorias[1] = 0;
+		this.categorias[2] = 0;
+		this.categorias[3] = 0;
 	}
 
 	public String getTermo() {
@@ -41,6 +48,14 @@ public class TermoRelevante implements Comparable {
 		return this.termo.compareToIgnoreCase(obj.getTermo());
 	}
 
+	public void setCategoria(int idx, int valor) {
+		this.categorias[idx] = valor;
+	}
+	
+	public Integer[] getCategorias() {
+		return this.categorias;
+	}
+	
 	@Override
 	public int compareTo(Object o) {
 		TermoRelevante t = (TermoRelevante)o;

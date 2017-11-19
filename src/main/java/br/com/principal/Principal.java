@@ -45,12 +45,16 @@ public class Principal {
 						if((t + 2) < sentence.getTokens().size()) {
 							termo = token.getLexeme().toLowerCase() + " " 
 									+ sentence.getTokens().get(t+1).getLexeme().toLowerCase();
+						} else {
+							break;
 						}
 					} else if(n == 3) {
 						if((t + 3) < sentence.getTokens().size()) {
 							termo = token.getLexeme().toLowerCase() + " " 
 									+ sentence.getTokens().get(t+1).getLexeme().toLowerCase() + " "
 									+ sentence.getTokens().get(t+2).getLexeme().toLowerCase();
+						} else {
+							break;
 						}
 					}
 					
@@ -106,11 +110,161 @@ public class Principal {
 	
 	public static void list2file(List<TermoRelevante> lista, String outfile) throws IOException {
 		FileWriter outWriter = new FileWriter(outfile);
-		
 		PrintWriter out = new PrintWriter(outWriter);
 		
 		for(TermoRelevante t : lista) {
 			out.println(t.getTermo() + " [" + t.getRepeticao() + " -- " + t.getClassificacao() + "]");
+		}
+		
+		outWriter.close();
+	}
+	
+	/* Gera arquivo no formato do WEKA concatenando as listas */
+	public static void gerarBOW(List<TermoRelevante> l1,
+			List<TermoRelevante> l2,
+			List<TermoRelevante> l3,
+			List<TermoRelevante> l4, int k, String outfile) throws IOException {
+		
+		List<TermoRelevante> termos = new ArrayList<TermoRelevante>();
+		FileWriter outWriter = new FileWriter(outfile);
+		PrintWriter out = new PrintWriter(outWriter);
+
+		int idx1 = 0, idx2 = 0, idx3 = 0, idx4 = 0, total = 0;
+		
+		while(total < k) {
+			if((l1.get(idx1).getRepeticao() > l2.get(idx2).getRepeticao())
+					&& (l1.get(idx1).getRepeticao() > l3.get(idx3).getRepeticao())
+					&& (l1.get(idx1).getRepeticao() > l4.get(idx4).getRepeticao())) {
+				
+				l1.get(idx1).setCategoria(0, 1);
+								
+				/* Pesquisa outras listas pela palavra para categorizacao */
+				for(TermoRelevante t : l2) {
+					if(t.getTermo().equals((l1.get(idx1).getTermo()))) {
+						l1.get(idx1).setCategoria(1, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l3) {
+					if(t.getTermo().equals((l1.get(idx1).getTermo()))) {
+						l1.get(idx1).setCategoria(2, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l4) {
+					if(t.getTermo().equals((l1.get(idx1).getTermo()))) {
+						l1.get(idx1).setCategoria(3, 1);
+						break;
+					}
+				}
+				termos.add(l1.get(idx1));
+				idx1++;
+			} else if((l2.get(idx2).getRepeticao() > l1.get(idx1).getRepeticao())
+					&& (l2.get(idx2).getRepeticao() > l3.get(idx3).getRepeticao())
+					&& (l2.get(idx2).getRepeticao() > l4.get(idx4).getRepeticao())) {
+				
+				l2.get(idx2).setCategoria(1, 1);
+								
+				/* Pesquisa outras listas pela palavra para categorizacao */
+				for(TermoRelevante t : l1) {
+					if(t.getTermo().equals((l2.get(idx2).getTermo()))) {
+						l2.get(idx2).setCategoria(0, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l3) {
+					if(t.getTermo().equals((l2.get(idx2).getTermo()))) {
+						l2.get(idx2).setCategoria(2, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l4) {
+					if(t.getTermo().equals((l2.get(idx2).getTermo()))) {
+						l2.get(idx2).setCategoria(3, 1);
+						break;
+					}
+				}
+				termos.add(l2.get(idx2));
+				idx2++;
+			} else if((l3.get(idx3).getRepeticao() > l1.get(idx1).getRepeticao())
+					&& (l3.get(idx3).getRepeticao() > l2.get(idx2).getRepeticao())
+					&& (l3.get(idx3).getRepeticao() > l4.get(idx4).getRepeticao())) {
+				
+				l3.get(idx3).setCategoria(2, 1);
+								
+				/* Pesquisa outras listas pela palavra para categorizacao */
+				for(TermoRelevante t : l1) {
+					if(t.getTermo().equals((l3.get(idx3).getTermo()))) {
+						l3.get(idx3).setCategoria(0, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l2) {
+					if(t.getTermo().equals((l3.get(idx3).getTermo()))) {
+						l3.get(idx3).setCategoria(1, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l4) {
+					if(t.getTermo().equals((l3.get(idx3).getTermo()))) {
+						l2.get(idx2).setCategoria(3, 1);
+						break;
+					}
+				}
+				termos.add(l3.get(idx3));
+				idx3++;
+			} else if((l4.get(idx4).getRepeticao() > l1.get(idx1).getRepeticao())
+					&& (l4.get(idx4).getRepeticao() > l2.get(idx2).getRepeticao())
+					&& (l4.get(idx4).getRepeticao() > l3.get(idx3).getRepeticao())) {
+				
+				l4.get(idx4).setCategoria(3, 1);
+								
+				/* Pesquisa outras listas pela palavra para categorizacao */
+				for(TermoRelevante t : l1) {
+					if(t.getTermo().equals((l4.get(idx4).getTermo()))) {
+						l4.get(idx4).setCategoria(0, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l2) {
+					if(t.getTermo().equals((l4.get(idx4).getTermo()))) {
+						l4.get(idx4).setCategoria(1, 1);
+						break;
+					}
+				}
+				
+				for(TermoRelevante t : l3) {
+					if(t.getTermo().equals((l4.get(idx4).getTermo()))) {
+						l4.get(idx4).setCategoria(2, 1);
+						break;
+					}
+				}
+				termos.add(l4.get(idx4));
+				idx4++;
+			}			
+		}
+		
+		/* Gera lista dos k termos para arquivo */
+		out.println("@relation " + outfile);
+		
+		/* Imprime palavras */
+		for(TermoRelevante t : termos) {
+			// TODO: Processar espacos e outros caracteres especiais
+			out.println("@attribute " + t.getTermo().toUpperCase() + " integer");
+		}
+		
+		out.println("@attribute classe {Esporte, Policia, Problema, Trabalhador}");
+		out.println("@data");
+		
+		for(TermoRelevante t : termos) {
+			out.println(t.getTermo());
 		}
 		
 		outWriter.close();
@@ -129,23 +283,68 @@ public class Principal {
 		// TODO: adicionar os outros texto mais tarde!
 		
 		/* processando texto sobre esportes */
-		document.setText(leitor.LerArquivoDeEsportes());
 		//document.setText(leitor.LerArquivoDeTeste());
+		//cogroo.analyze(document);
+
+
+		document.setText(leitor.LerArquivoDeTexto("textos/Esporte.txt"));
 		cogroo.analyze(document);
 
 		List<TermoRelevante> termosEsportes_n1 = listarTermos(document, 1);
-		List<TermoRelevante> termosEsportes_n2 = listarTermos(document, 2);
-		List<TermoRelevante> termosEsportes_n3 = listarTermos(document, 3);
-		
+		//List<TermoRelevante> termosEsportes_n2 = listarTermos(document, 2);
+		//List<TermoRelevante> termosEsportes_n3 = listarTermos(document, 3);
+
 		Collections.sort(termosEsportes_n1);
-		Collections.sort(termosEsportes_n2);
-		Collections.sort(termosEsportes_n3);
+		//Collections.sort(termosEsportes_n2);
+		//Collections.sort(termosEsportes_n3);
+
+		
+		document.setText(leitor.LerArquivoDeTexto("textos/Policia.txt"));
+		cogroo.analyze(document);
+
+		List<TermoRelevante> termosPolicia_n1 = listarTermos(document, 1);
+		//List<TermoRelevante> termosPolicia_n2 = listarTermos(document, 2);
+		//List<TermoRelevante> termosPolicia_n3 = listarTermos(document, 3);
+
+		Collections.sort(termosPolicia_n1);
+		//Collections.sort(termosPolicia_n2);
+		//Collections.sort(termosPolicia_n3);
+		
+
+		document.setText(leitor.LerArquivoDeTexto("textos/Problema.txt"));
+		cogroo.analyze(document);
+
+		List<TermoRelevante> termosProblema_n1 = listarTermos(document, 1);
+		//List<TermoRelevante> termosProblema_n2 = listarTermos(document, 2);
+		//List<TermoRelevante> termosProblema_n3 = listarTermos(document, 3);
+
+		Collections.sort(termosProblema_n1);
+		//Collections.sort(termosProblema_n2);
+		//Collections.sort(termosProblema_n3);
+
+
+		document.setText(leitor.LerArquivoDeTexto("textos/Trabalhador.txt"));
+		cogroo.analyze(document);
+
+		List<TermoRelevante> termosTrabalhador_n1 = listarTermos(document, 1);
+		//List<TermoRelevante> termosTrabalhador_n2 = listarTermos(document, 2);
+		//List<TermoRelevante> termosTrabalhador_n3 = listarTermos(document, 3);
+
+		Collections.sort(termosTrabalhador_n1);
+		//Collections.sort(termosTrabalhador_n2);
+		//Collections.sort(termosTrabalhador_n3);
+
+				
 		
 		/* lista de sentenças */
 		try {
 			list2file(termosEsportes_n1, "output/esportes_n1.txt");
-			list2file(termosEsportes_n2, "output/esportes_n2.txt");
-			list2file(termosEsportes_n3, "output/esportes_n3.txt");
+			list2file(termosPolicia_n1, "output/policia_n1.txt");
+			list2file(termosProblema_n1, "output/problema_n1.txt");
+			list2file(termosTrabalhador_n1, "output/trabalhador_n1.txt");
+			
+			gerarBOW(termosEsportes_n1, termosPolicia_n1, 
+						termosProblema_n1, termosTrabalhador_n1, 10, "output/bow_n1.arff");
 		} catch(IOException e) {
 			System.out.println("Falha ao escrever arquivos de saida!");
 		}
