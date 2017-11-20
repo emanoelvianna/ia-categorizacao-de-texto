@@ -1,0 +1,14 @@
+TEXTO 2
+<head> <edic><Diário Gaúcho 14/05/2013 | 10h53</edic>
+<autor>Eduardo Torres, eduardo.torres@diariogaucho.com.br</autor>
+</head>
+<body>
+<subtítulo>12 presos</subtítulo>
+<título>Homem morto durante operação na Região Metropolitana é apontado como matador de quadrilha</título>
+Plínio César Ribeiro, o Formiga, 32 anos, recebeu os policiais a tiros no Bairro São Sebastião, na zona norte.
+Eduardo Torres
+eduardo.torres@diariogaucho.com.br
+A Operação Matrix fechou com sete mulheres e cinco homens presos preventivamente,  todos envolvidos com o tráfico de drogas em bocas de fumo de Cachoeirinha e Gravataí. Foram apreendidas três pistolas - 9mm, .45 e .22 - e um revólver calibre 38, além de uma pequena quantidade de crack e cocaína, carros e uma moto usados pelos criminosos para tele-entrega de drogas na região.
+Plínio César Ribeiro, o Formiga, 32 anos, era apontado pela polícia como o matador da quadrilha, suspeito por pelo menos cinco homicídios entre Cachoeirinha e Gravataí desde o ano passado. Cabia a ele eliminar desafetos, devedores e rivais do bando na disputa pelos pontos de tráfico. Por volta das 6h, ele recebeu os agentes a tiros no apartamento da ex-companheira, onde dormia, no Bairro São Sebastião, Zona Norte de Porto Alegre.
+Os policiais reagiram e Formiga foi morto com pelo menos oito tiros. Um dos policiais levou um tiro de raspão no braço direito e a avó de Formiga foi ferida no braço esquerdo. Ela segue internada no HPS. A suspeita é de que o disparo que a atingiu partiu da arma do suspeito, uma pistola 9mm apreendida na ação. Nas cuecas, Formiga trazia ainda um distintivo da Polícia Civil.
+</body>

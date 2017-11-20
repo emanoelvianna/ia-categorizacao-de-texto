@@ -1,0 +1,15 @@
+TEXTO 5
+<head> <edic><Diário Gaúcho 16/05/2013 | 17h58Atualizada em 16/05/2013 | 19h44</edic>
+<autor>Aline Custódio, aline.custodio@diariogaucho.com.br</autor>
+</head>
+<body>
+<subtítulo>Tragédia na Capital</subtítulo>
+<título>Três irmãos morrem em incêndio no Bairro Belém Novo, na Zona Sul</título>
+Duas crianças, de três e quatro anos, e um jovem de 21 anos foram encontrados sem vida em casa na Vila Júlia
+Aline Custódio
+aline.custodio@diariogaucho.com.br
+Três irmãos morreram em um incêndio que atingiu uma casa na Vila Júlia, no Bairro Belém Novo, na Zona Sul da Capital, na tarde desta quinta-feira. 
+De acordo com a Polícia Civil, Clai Jesus Silva de Oliveira, 21 anos, foi encontrado na parte dos fundos da casa, entre a cozinha e a área de serviço. Os corpos das crianças, Renan, de 4 anos, e Rafaela, de 3 anos, estavam na parte da frente da residência, completamente carbonizados.  
+Segundo o capitão Marcelo Nogueira da Silva, comandante da 2ª Cia do 21º BPM, a casa localizada no Beco Três, com acesso pela Avenida do Lami, possuía três peças, uma de alvenaria e duas de madeira. O fogo teria iniciado por volta das 16h30min.
+A perícia está no local para investigar as causas do incêndio.
+</body>

@@ -1,0 +1,12 @@
+TEXTO 6
+<head> <edic><Diário Gaúcho 16/05/2013 | 11h49</edic>
+<autor></autor>
+</head>
+<body>
+<subtítulo>Prisão</subtítulo>
+<título>Três homens são presos após assalto em Canoas</título>
+Foram encontradas armas e um cofre roubado de uma empresa
+Três homens foram presos nesta manhã com cinco armas entre revólveres e pistolas, além de um cofre ainda fechado, que haviam sido roubados de uma empresa de vigilância na Rua Berto Círio, Bairro São Luiz, em Canoas. 
+Dado o alerta, a Polícia Rodoviária Federal (PRF) e a Brigada Militar perseguiram o trio na BR-386, onde os criminosos perderam o controle do Marea usado no roubo e tentaram se refugiar em um matagal.
+A polícia ainda não confirma as identificações dos presos, que estão sendo conduzidos à DPPA de Canoas.
+</body>
