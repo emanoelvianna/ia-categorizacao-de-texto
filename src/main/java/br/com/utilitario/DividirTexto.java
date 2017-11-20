@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import org.apache.commons.lang.math.NumberUtils;
+
 public class DividirTexto {
 
 	private static final String SEPARADOR = "TEXTO";
 	// TODO: rever o melhor lugar para criar os arquivos de saida!
-	private static final String CAMINHO_SAIDA = "textos/saida";
+	private static final String CAMINHO_SAIDA = "textos/";
 	// TODO: melhorar o nome, quem sabe deixar mais explicito a origem
 	private static final String NOME_ARQUIVO = "texto";
 	private static final String FORMATO = ".txt";
@@ -22,16 +24,22 @@ public class DividirTexto {
 		StringBuffer texto = new StringBuffer();
 		try {
 			for (String caminhoParaAquivo : arquivos) {
-				int contador = 0;
+				int contador = 1;
 				BufferedReader info = new BufferedReader(new FileReader(caminhoParaAquivo));
 				String linha = info.readLine();
 				while (linha != null) {
-					if (linha.contains(SEPARADOR)) {
+					if (linha.contains(SEPARADOR + " " + contador)) {
 						File arquivo = new File(CAMINHO_SAIDA + NOME_ARQUIVO + contador + FORMATO);
 						contador++;
-						while (!linha.contains(SEPARADOR)) {
+						/* ignorando a linha com o separador */
+						linha = info.readLine();
+						if (linha == null)
+							break;
+						while (!linha.contains(SEPARADOR + " " + contador)) {
 							escrever(linha, arquivo);
 							linha = info.readLine();
+							if (linha == null)
+								break;
 						}
 					}
 				}
