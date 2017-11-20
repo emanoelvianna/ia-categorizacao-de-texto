@@ -18,12 +18,20 @@ import org.cogroo.text.impl.DocumentImpl;
 
 import br.com.utilitario.LerArquivoTexto;
 import br.com.utilitario.TermoRelevante;
+import br.com.utilitario.Texto;
+import br.com.utilitario.enumeracao.CategoriaTexto;
 import br.com.utilitario.enumeracao.Classificacao;
+import br.com.utilitario.enumeracao.TipoTexto;
 
 public class Principal {
 	
 	/* Processa um texto e retorna lista ordenada de termos relevantes baseado em frequencia */
-	public static List<TermoRelevante> listarTermos(Document document, int n) {
+	//public static List<TermoRelevante> listarTermos(Document document, int n) {
+	public static List<TermoRelevante> listarTermos(Document document, Texto texto) {
+		
+		int n = 1; // Limpar depois 
+		
+		
 		List<TermoRelevante> termosRelevantes = new ArrayList<TermoRelevante>();
 		boolean termoEncontrado;
 
@@ -100,7 +108,7 @@ public class Principal {
 							classificacao = Classificacao.NUMERO;
 						
 						//System.out.println("** Adicionando token " + token.getLemmas()[0] + "[" + classificacao + "]");
-						termosRelevantes.add(new TermoRelevante(termo, classificacao));
+						texto.addTermo(new TermoRelevante(termo, classificacao));
 					}
 				}
 			}
@@ -286,6 +294,8 @@ public class Principal {
 	
 
 	public static void main(String[] args) {
+		List<Texto> textos = new ArrayList<Texto>();
+		
 		/* configurações de idioma */
 		ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
 		Analyzer cogroo = factory.createPipe();
@@ -310,8 +320,9 @@ public class Principal {
 			document.setText(leitor.LerArquivoDeTexto(filePath));
 			cogroo.analyze(document);
 			
-			// TODO: preprocessar termos e colocar na lista do respectivo objeto Texto 
-			
+			// TODO: preprocessar termos e colocar na lista do respectivo objeto Texto
+			Texto texto = new Texto(TipoTexto.TREINO, CategoriaTexto.ESPORTE);
+			listarTermos(document, texto);
 		}
 		
 		/* Policia */

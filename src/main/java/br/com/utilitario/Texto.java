@@ -1,5 +1,6 @@
 package br.com.utilitario;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.utilitario.enumeracao.CategoriaTexto;
@@ -14,6 +15,7 @@ public class Texto {
 	public Texto(TipoTexto tipoTexto, CategoriaTexto categoria) {
 		this.tipoTexto = tipoTexto;
 		this.categoria = categoria;
+		termos = new ArrayList<TermoRelevante>();
 	}
 	
 	public CategoriaTexto getCategoriaTexto() {
@@ -26,5 +28,14 @@ public class Texto {
 	
 	public void addTermo(TermoRelevante termo) {
 		this.termos.add(termo);
+	}
+	
+	public String toString() {
+		String res = "Texto [Categoria: " + categoria + " | Tipo: " + tipoTexto + "]";
+		
+		for(TermoRelevante termo : termos) {
+			res += termo;
+		}
+		return res;
 	}
 }

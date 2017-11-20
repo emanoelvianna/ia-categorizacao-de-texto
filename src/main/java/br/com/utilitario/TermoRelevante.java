@@ -66,4 +66,8 @@ public class TermoRelevante implements Comparable {
 		
 		return 0;
 	}
+	
+	public String toString() {
+		return "[Termo: " + termo + " | Classificacao: " + classificacao + "]";
+	}
 }
