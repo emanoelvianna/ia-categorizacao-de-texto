@@ -323,6 +323,7 @@ public class Principal {
 			// TODO: preprocessar termos e colocar na lista do respectivo objeto Texto
 			Texto texto = new Texto(TipoTexto.TREINO, CategoriaTexto.ESPORTE);
 			listarTermos(document, texto);
+			textos.add(texto);
 		}
 		
 		/* Policia */
@@ -334,6 +335,12 @@ public class Principal {
 		/* Trabalhador */
 		
 		
+		
+		
+		/* Lista textos e termos */
+		for(Texto t : textos) {
+			System.out.println(t);
+		}
 		
 		
 

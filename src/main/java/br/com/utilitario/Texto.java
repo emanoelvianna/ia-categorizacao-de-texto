@@ -34,7 +34,7 @@ public class Texto {
 		String res = "Texto [Categoria: " + categoria + " | Tipo: " + tipoTexto + "]";
 		
 		for(TermoRelevante termo : termos) {
-			res += termo;
+			res += "\n" + termo + "\n";
 		}
 		return res;
 	}
