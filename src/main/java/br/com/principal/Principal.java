@@ -277,7 +277,7 @@ public class Principal {
 		
 		for(File file : folder.listFiles()) {
 			if(file.isFile()) {
-				files.add(file.getName());
+				files.add(file.getAbsolutePath());
 			}
 		}
 		
@@ -301,11 +301,30 @@ public class Principal {
 		//cogroo.analyze(document);
 
 		/* Obtem lista de arquivos de treino */
-		List<String> filesEsportes = getFilesInFolder(".");
 		
-		for(String s : filesEsportes) {
-			System.out.println("Arquivo = " + s);
+		/* Esportes */
+		List<String> files = getFilesInFolder("textos/esporte/treino");
+		
+		for(String filePath : files) {
+			System.out.println("Carregando arquivo = " + filePath);
+			document.setText(leitor.LerArquivoDeTexto(filePath));
+			cogroo.analyze(document);
+			
+			// TODO: preprocessar termos e colocar na lista do respectivo objeto Texto 
+			
 		}
+		
+		/* Policia */
+		
+		
+		/* Problema */
+		
+		
+		/* Trabalhador */
+		
+		
+		
+		
 
 		/*
 		document.setText(leitor.LerArquivoDeTexto("textos/Esporte.txt"));

@@ -1,0 +1,16 @@
+TEXTO 9
+<head> <edic><Diário Gaúcho  30/05/2013 | 09h13</edic>
+<autor>Kenny Braga, kenny.braga@diariogaucho.com.br</autor>
+</head>
+<body>
+<subtítulo>Paixão colorada</subtítulo>
+<título>Ligado 100%</título>
+Kenny Braga
+kenny.braga@diariogaucho.com.br
+A primeira rodada do Brasileirão, disputada no fim de semana passado, mostrou que há um equilíbrio de forças. Nas dez partidas, somente Cruzeiro e Criciúma ganharam com um placar mais folgado contra adversários modestos, Goiás e Bahia. Todos os outros jogos tiveram resultados muito aquém da expectativa dos torcedores, ao menos em termos de produção ofensiva.
+O Criciúma, adversário do Inter hoje à noite, em Caxias, construiu o chamado escore clássico de 3 a 1 sobre o Bahia e, por isso, chegou à Serra com o moral alto.
+Recomenda-se, portanto, que o time do Inter não repita, hoje, no Estádio Centenário, apagão dos primeiros 15 minutos do jogo de estreia, contra o Vitória. O time tem que ir para o campo 100% ligado para não deixar o Criciúma gostar do jogo.
+<subtítulo>Negatividade</subtítulo>
+A torcida colorada também deve fazer a sua parte, apoiando o time do inicio ao fim. Embora ainda se comente que o melhor seria o Inter mandar seus jogos no Beira-Rio, numa repetição óbvia, o Centenário é e continuará sendo por muitos jogos a nossa segunda casa.
+Mais importante do que se cogitar pequenas dificuldades, perfeitamente superáveis, é o time fazer mais e jogar mais porque ,mesmo sem os reforços pretendidos, não é o poço de negatividade em que tentam, inutilmente, transformá-lo. A negatividade não é do time, mas de quem faz o seu julgamento, misturando critica com má vontade e mau humor.
+</body>
