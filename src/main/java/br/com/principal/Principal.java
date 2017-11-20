@@ -1,5 +1,6 @@
 package br.com.principal;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -270,6 +271,19 @@ public class Principal {
 		outWriter.close();
 	}
 	
+	public static List<String> getFilesInFolder(String path) {
+		File folder = new File(path);
+		List<String> files = new ArrayList<String>();
+		
+		for(File file : folder.listFiles()) {
+			if(file.isFile()) {
+				files.add(file.getName());
+			}
+		}
+		
+		return files;
+	}
+	
 
 	public static void main(String[] args) {
 		/* configurações de idioma */
@@ -286,7 +300,14 @@ public class Principal {
 		//document.setText(leitor.LerArquivoDeTeste());
 		//cogroo.analyze(document);
 
+		/* Obtem lista de arquivos de treino */
+		List<String> filesEsportes = getFilesInFolder(".");
+		
+		for(String s : filesEsportes) {
+			System.out.println("Arquivo = " + s);
+		}
 
+		/*
 		document.setText(leitor.LerArquivoDeTexto("textos/Esporte.txt"));
 		cogroo.analyze(document);
 
@@ -334,9 +355,10 @@ public class Principal {
 		//Collections.sort(termosTrabalhador_n2);
 		//Collections.sort(termosTrabalhador_n3);
 
-				
+		*/	
 		
 		/* lista de sentenças */
+		/*
 		try {
 			list2file(termosEsportes_n1, "output/esportes_n1.txt");
 			list2file(termosPolicia_n1, "output/policia_n1.txt");
@@ -348,5 +370,6 @@ public class Principal {
 		} catch(IOException e) {
 			System.out.println("Falha ao escrever arquivos de saida!");
 		}
+		*/
 	}
 }

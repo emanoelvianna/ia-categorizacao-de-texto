@@ -56,7 +56,6 @@ public class TermoRelevante implements Comparable {
 		return this.categorias;
 	}
 	
-	@Override
 	public int compareTo(Object o) {
 		TermoRelevante t = (TermoRelevante)o;
 		
