@@ -1,14 +1,1 @@
-TEXTO 8
-<head> <edic><Diário Gaúcho 15 de junho de 2013
-<autor></autor>
-</head>
-<body>
-<subtítulo></subtítulo>
-<título>Mais prazo para o ProJovem</título>
-A FGTAS prorrogou, até 28 de junho, as inscrições para os cursos de qualificação profissional do Programa ProJovem Trabalhador, que oferecerá 4.120 vagas em cursos de qualificação social e profissional em 21 municípios gaúchos.
-Na Região Metropolitana, as inscrições podem ser feitas nas agências Sine de Alvorada, Canoas, Gravataí, Guaíba, Novo Hamburgo, Porto Alegre, São Leopoldo, Sapucaia do Sul e Viamão.
-Podem participar jovens entre 18 e 29 anos, desempregados, ser membro de família com renda por pessoa de até um salário mínimo (R$ 678) e estar cursando ou ter concluído o ensino fundamental e médio.
-Os jovens receberão bolsa-auxílio de até R$ 600.
-Postado por Espaço do Trabalhador, às 12:33
-Categorias: Anota Aí, Cursos
-</body>
+Este Ã© um arquivo de texto simples.

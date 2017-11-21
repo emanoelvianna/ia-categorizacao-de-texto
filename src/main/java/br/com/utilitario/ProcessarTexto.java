@@ -12,6 +12,7 @@ import org.cogroo.text.Sentence;
 import org.cogroo.text.Token;
 
 import br.com.utilitario.enumeracao.Classificacao;
+import br.com.utilitario.enumeracao.TipoTexto;
 
 public class ProcessarTexto {
 	
@@ -129,6 +130,7 @@ public class ProcessarTexto {
 	/* Gera arquivo no formato do WEKA a partir da lista de textos */
 	public static void gerarBOW(List<Texto> textos, int k, String outfile) throws IOException {
 		List<String> termos = new ArrayList<String>();
+		boolean adicionarTermo = true;
 		
 		if(textos.size() == 0) {
 			return;
@@ -136,40 +138,52 @@ public class ProcessarTexto {
 		
 		/* Indice de deslocamento entre as listas de termos de cada texto */
 		int[] textIdx = new int[textos.size()];
-		int currIdx = 0;
+		int currIdx = 0, i;
 
 		/* Inicializa indices na posicao zero */
-		for(int i = 0; i < textIdx.length; i++) 
+		for(i = 0; i < textIdx.length; i++) 
 			textIdx[i] = 0;
 		
 		 
 		
 		while(termos.size() < k) {
+			adicionarTermo = true;
 			TermoRelevante termoAux = textos.get(0).getTermos().get(textIdx[0]);
 			currIdx = 0;
 			
-			for(int i = 0; i < textos.size(); i++) {
+			for(i = 0; i < textos.size(); i++) {
+				termoAux = textos.get(0).getTermos().get(textIdx[0]);
+				
 				System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + "]");
 
 				if((textIdx[i] + 1) >= textos.get(i).getTermos().size()) {
-				continue;
+					//System.out.println("Lista esgotada!");
+					adicionarTermo = false;
+					break;
 				}
 				
-				if(termos.contains(termoAux.getTermo())) {
+				if(termos.contains(textos.get(i).getTermos().get(textIdx[i]).getTermo())) {
+					//System.out.println("\tLista ja contem termo " + termoAux.getTermo());
 					textIdx[i]++;
-					continue;
+					adicionarTermo = false;
+					break;
 				}
 				
-				if(textos.get(i).getTermos().get(textIdx[i]).getRepeticao() > termoAux.getRepeticao()) {
+				if(textos.get(i).getTermos().get(textIdx[i]).getRepeticao() >= termoAux.getRepeticao()) {
 					if(termos.contains(termoAux.getTermo())) {
 						textIdx[i]++;
-						continue;
+						adicionarTermo = false;
+						break;
 					}
 			
 					/* Substituiu por termo com maior recorrencia */
 					termoAux = textos.get(i).getTermos().get(textIdx[i]);
 					currIdx = i;
 				}
+			}
+			
+			if(adicionarTermo) {
+				System.out.println("*** Adicionando termo " + termoAux.getTermo());
 				termos.add(termoAux.getTermo());
 				textIdx[currIdx]++;
 			}
@@ -180,9 +194,6 @@ public class ProcessarTexto {
 		FileWriter outWriter = new FileWriter(outfile);
 		PrintWriter out = new PrintWriter(outWriter);
 		
-		
-		System.out.println("Dentro do BOW!");
-		
 		out.println("@relation " + outfile);
 		
 		/* Imprime palavras */
@@ -191,12 +202,29 @@ public class ProcessarTexto {
 			out.println("@attribute " + t.toUpperCase() + " integer");
 		}
 		
-		out.println("@attribute classe {Esporte, Policia, Problema, Trabalhador}");
+		out.println("@attribute classe {ESPORTE, POLICIA, PROBLEMA, TRABALHADOR}");
 		out.println("@data");
+
 		
-		for(String t : termos) {
-			System.out.println("Bla " + t);
-			out.println(t);
+		/* Percorre todos os textos e gera ARFF */
+
+		for(Texto t : textos) {
+			for(i = 0; i < termos.size(); i++) {
+				if(t.temTermo(termos.get(i))) {
+					out.print("1");
+				} else {
+					out.print("0");
+				}
+				if(i < termos.size() - 1) {
+					out.print(",");
+				}
+			}
+			
+			if(t.getTipoText() == TipoTexto.TREINO) {
+				out.println(" " + t.getCategoriaTexto());
+			} else {
+				out.println(" ?");
+			}
 		}
 		
 		outWriter.close();

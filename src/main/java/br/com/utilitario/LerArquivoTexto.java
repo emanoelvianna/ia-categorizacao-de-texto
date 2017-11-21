@@ -79,7 +79,7 @@ public class LerArquivoTexto {
 			document.setText(LerArquivoDeTexto(filePath));
 			cogroo.analyze(document);
 			
-			Texto texto = new Texto(TipoTexto.TREINO, CategoriaTexto.ESPORTE);
+			Texto texto = new Texto(tipoTexto, categoriaTexto);
 			ProcessarTexto.listarTermos(document, texto);
 			textos.add(texto);
 		}
