@@ -1,19 +1,31 @@
 package br.com.utilitario;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import org.cogroo.analyzer.Analyzer;
+import org.cogroo.analyzer.ComponentFactory;
+import org.cogroo.text.Document;
+import org.cogroo.text.impl.DocumentImpl;
+
+import br.com.utilitario.enumeracao.CategoriaTexto;
+import br.com.utilitario.enumeracao.TipoTexto;
 
 public class LerArquivoTexto {
 
 	private LimparArquivoTexto limparArquivoTexto;
 
 	public LerArquivoTexto() {
-		this.limparArquivoTexto = new LimparArquivoTexto();
+		limparArquivoTexto = new LimparArquivoTexto();
 	}
 
 	
-	public String LerArquivoDeTexto(String arquivo) {
+	private String LerArquivoDeTexto(String arquivo) {
 		StringBuffer texto = new StringBuffer();
 		
 		try {
@@ -21,54 +33,64 @@ public class LerArquivoTexto {
 			String linha = info.readLine();
 			// TODO: Tratar o arquivo de texto antes de retornar!
 			while (linha != null) {
-				texto.append(this.limparLinha(linha));
+				texto.append(limparLinha(linha));
 				linha = info.readLine();
 			}
 			info.close();
 		} catch (IOException e) {
-			System.out.println("Erro ao abrir arquivo de esportes");
+			System.out.println("Erro ao abrir arquivo " + arquivo);
 		} finally {
 			
 		}
 		return texto.toString();
 	}
+	
+	
+	private List<String> getFilesInFolder(String path) {
+		File folder = new File(path);
+		List<String> files = new ArrayList<String>();
+		
+		for(File file : folder.listFiles()) {
+			if(file.isFile()) {
+				files.add(file.getAbsolutePath());
+			}
+		}
+		
+		return files;
+	}
 
 	
 	
-	public String LerArquivoDeEsportes() {
-		StringBuffer texto = new StringBuffer();
-		try {
-			BufferedReader info = new BufferedReader(new FileReader("textos/Esporte.txt"));
-			String linha = info.readLine();
-			// TODO: Tratar o arquivo de texto antes de retornar!
-			while (linha != null) {
-				texto.append(this.limparLinha(linha));
-				linha = info.readLine();
-			}
-		} catch (IOException e) {
-			System.out.println("Erro ao abrir arquivo de esportes");
-		}
-		return texto.toString();
-	}
+	public List<Texto> carregarTextos(String path, TipoTexto tipoTexto, CategoriaTexto categoriaTexto) {
+		List<String> files = getFilesInFolder(path);
+		List<Texto> textos = new ArrayList<Texto>();
+		
+		/* configurações de idioma */
+		ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
+		Analyzer cogroo = factory.createPipe();
 
-	public String LerArquivoDeTeste() {
-		StringBuffer texto = new StringBuffer();
-		try {
-			BufferedReader info = new BufferedReader(new FileReader("textos/ParaTeste.txt"));
-			String linha = info.readLine();
-			while (linha != null) {
-				texto.append(this.limparLinha(linha));
-				linha = info.readLine();
-			}
-		} catch (IOException e) {
-			System.out.println("Erro ao abrir arquivo de teste");
-		}
-		return texto.toString();
-	}
+		/* processar texto */
+		Document document = new DocumentImpl();
 
+		
+		for(String filePath : files) {
+			System.out.println("Carregando arquivo = " + filePath);
+			
+			document.setText(LerArquivoDeTexto(filePath));
+			cogroo.analyze(document);
+			
+			Texto texto = new Texto(TipoTexto.TREINO, CategoriaTexto.ESPORTE);
+			ProcessarTexto.listarTermos(document, texto);
+			textos.add(texto);
+		}
+
+		return textos;
+	}
+	
+	
 	public String limparLinha(String linha) {
-		linha = this.limparArquivoTexto.removerTagsHtml(linha);
-		linha = this.limparArquivoTexto.removerCaracteres(linha);
+		linha = limparArquivoTexto.removerTagsHtml(linha);
+		linha = limparArquivoTexto.removerCaracteres(linha);
 		return linha;
 	}
 

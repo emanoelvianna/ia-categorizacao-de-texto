@@ -30,6 +30,10 @@ public class Texto {
 		this.termos.add(termo);
 	}
 	
+	public List<TermoRelevante> getTermos() {
+		return this.termos;
+	}
+	
 	public String toString() {
 		String res = "Texto [Categoria: " + categoria + " | Tipo: " + tipoTexto + "]";
 		

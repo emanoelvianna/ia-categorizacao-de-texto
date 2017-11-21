@@ -2,6 +2,7 @@ package br.com.utilitario;
 
 import br.com.utilitario.enumeracao.Classificacao;
 
+@SuppressWarnings("rawtypes")
 public class TermoRelevante implements Comparable {
 	private String termo;
 	private Integer repeticao;
@@ -68,6 +69,7 @@ public class TermoRelevante implements Comparable {
 	}
 	
 	public String toString() {
-		return "[Termo: " + termo + " | Classificacao: " + classificacao + "]";
+		return "[Termo: " + termo + " | Classificacao: " + classificacao 
+				+ " | Repeticao: " + this.repeticao + "]";
 	}
 }
