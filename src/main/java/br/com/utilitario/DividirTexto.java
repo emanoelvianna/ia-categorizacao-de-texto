@@ -30,37 +30,29 @@ public class DividirTexto {
 				while (linha != null) {
 					if (linha.contains(SEPARADOR + " " + contador)) {
 						File arquivo = new File(CAMINHO_SAIDA + NOME_ARQUIVO + contador + FORMATO);
+						FileWriter grava = new FileWriter(arquivo);
+						PrintWriter escreve = new PrintWriter(grava);
 						contador++;
 						/* ignorando a linha com o separador */
 						linha = info.readLine();
 						if (linha == null)
 							break;
 						while (!linha.contains(SEPARADOR + " " + contador)) {
-							escrever(linha, arquivo);
+							/* escreve a linha em um novo arquivo separado */
+							escreve.println(linha);
 							linha = info.readLine();
 							if (linha == null)
 								break;
 						}
+						escreve.close();
+						grava.close();
 					}
 				}
 			}
 		} catch (IOException e) {
 			System.out.println("Erro ao dividir a lista de arquivos!\n");
 		}
-	}
-
-	/* escreve a linha em um novo arquivo separado */
-	private void escrever(String linha, File arquivo) {
-		try {
-			FileWriter grava = new FileWriter(arquivo);
-			PrintWriter escreve = new PrintWriter(grava);
-			escreve.println(linha);
-			escreve.close();
-			grava.close();
-		} catch (IOException e) {
-			System.out.println("Erro ao tentar escrever no arquivo!\n");
-		}
-	}
+	}	
 
 	// TODO: exemplo de como utilizar a classe, remover mais tarde!
 	public static void main(String[] args) {
