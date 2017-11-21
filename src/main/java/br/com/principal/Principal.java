@@ -28,7 +28,7 @@ public class Principal {
 		textos.addAll(lerArquivo.carregarTextos("textos/esporte/teste", TipoTexto.TESTE, CategoriaTexto.ESPORTE));
 		textos.addAll(lerArquivo.carregarTextos("textos/policia/teste", TipoTexto.TESTE, CategoriaTexto.POLICIA));
 		textos.addAll(lerArquivo.carregarTextos("textos/problema/teste", TipoTexto.TESTE, CategoriaTexto.PROBLEMA));
-		//textos.addAll(lerArquivo.carregarTextos("textos/trabalhador/treino", TipoTexto.TESTE, CategoriaTexto.TRABALHADOR));
+		//textos.addAll(lerArquivo.carregarTextos("textos/trabalhador/teste", TipoTexto.TESTE, CategoriaTexto.TRABALHADOR));
 
 		try {
 			ProcessarTexto.gerarBOW(textos, 120, "output/treino.arff", "output/teste.arff");

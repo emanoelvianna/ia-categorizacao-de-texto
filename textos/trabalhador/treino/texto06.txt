@@ -1,1 +1,12 @@
-Este é um arquivo de texto simples.
+TEXTO 6
+<head> <edic><Diário Gaúcho 11 de junho de 2013
+<autor></autor>
+</head>
+<body>
+<subtítulo></subtítulo>
+<título>Estude de graça na Restinga</título>
+O campus Restinga do Instituto Federal de Educação (IFRS) está com inscrições abertas até amanhã para seu vestibular. A novidade é o curso superior de Tecnologia em Gestão Desportiva e de Lazer, que oferece 30 vagas, metade das quais pelo Sisu.
+Também é oferecido o curso superior de tecnologia em Análise e Desenvolvimento de Sistemas e ainda há vagas para o curso Técnico em Guia de Turismo na modalidade Subsequente. Os candidatos devem ter o ensino médio completo.
+Todas as capacitações do IFRS são gratuitas. As inscrições devem ser feitas pelo site www.restinga.ifrs.edu.br. A taxa é de R$ 50 para o curso superior e R$ 30 para o técnico. Mais informações: 3247-8400.
+Categoria:Cursos
+</body>

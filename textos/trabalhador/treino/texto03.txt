@@ -1,1 +1,11 @@
-Este é um arquivo de texto simples.
+TEXTO 3
+<head> <edic><Diário Gaúcho 03 de junho de 2013
+<autor></autor>
+</head>
+<body>
+<subtítulo></subtítulo>
+<título>Cursos a baixo custo: 300 vagas</título>
+A agência Profissional RH está com inscrições abertas para seus cursos de capacitação profissional até 7 de junho. Os alunos receberão certificado e participarão de testes vocacionais, além de fazer parte de um banco de  dados para novas oportunidades de emprego. A taxa é de R$ 20.
+São 300 vagas para os cursos de departamento pessoal e recursos humanos, inglês, secretariado administrativo e recepção. Interessados devem ir à Rua Siqueira Campos, 1184, sala 510, Centro de Porto Alegre. Documentos necessários: cópias da identidade e do CPF. Mais informações: 3051-6039 e 3051-6038.
+Categoria:cursos
+</body>

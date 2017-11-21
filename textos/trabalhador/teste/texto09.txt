@@ -1,1 +1,26 @@
-Este é um arquivo de texto simples.
+TEXTO 9
+<head> <edic><Diário Gaúcho 17 de junho de 2013
+<autor>Cáren Cecília Baldo - caren.baldo@diariogaucho.com.br</autor>
+</head>
+<body>
+<subtítulo></subtítulo>
+<título>Sete formas de se tornar uma pessoa mais notável</título>
+Por Cáren Cecília Baldo - caren.baldo@diariogaucho.com.br
+Ao procurar por um emprego e também ao tentar mantê-lo, você precisa certificar-se de que será notado pela empresa. Experiência e habilidade não são os únicos pontos que serão observados. Por isso, é importante que você mostre que é diferente de todos os demais e que é a pessoa ideal para o trabalho. Para isso, confira sete maneiras para se tornar uma pessoa mais notável, elencadas por especialistas da Universia Brasil.
+<subtítulo>1. Responda a mensagens o mais breve possível</subtítulo>
+Quando receber uma mensagem, seja por e-mail, telefone ou qualquer outra, responda dentro da menor quantidade de tempo possível. É imprescindível que percebam que você é uma pessoa que está sempre disponível a resolver o que for pedido. Deixar alguém esperando é um grave erro, mesmo que você não saiba como responder de imediato, procure formular uma resposta agradável.
+<subtítulo>2. Deixe uma mensagem efetiva</subtítulo>
+Faça explicações claras e objetivas em suas mensagens. Especifique quais os motivos da sua ligação e qual o melhor horário para retornarem. Evite responder apenas com frases como "retorne a ligação".
+<subtítulo>3. Complete seus projetos dentro do prazo</subtítulo>
+Terminar projetos dentro do período estipulado é essencial. Caso você perceba que não será possível finalizar algo a tempo, avise as pessoas envolvidas e peça um atraso do prazo.
+<subtítulo>4. Administre seus e-mails com eficiência</subtítulo>
+Mantenha sua caixa de entrada sempre atualizada e retorne seus e-mails a tempo. Acumular e-mails pode fazer com que você deixe de ver os mais importantes, já que esses estarão escondidos por outros que não têm a menor relevância. Evite spams, bloqueando os endereços que tendem a enviá-los com frequência.
+<subtítulo>5. Seja rápido</subtítulo>
+Mostre-se uma pessoa atenta procurando sempre avisar assim que completar uma tarefa.
+<subtítulo>6. Mostre atitude</subtítulo>
+Ofereça-se para realizar todas as tarefas que você puder sempre que tiver tempo disponível e certifique-se de que fará um bom trabalho. Assim, você demonstra que tem atitude e eficácia.
+<subtítulo>7. Comunique-se</subtítulo>
+Saber como se comunicar é de extrema importância em um emprego. Ter um bom relacionamento com as pessoas fará com que as chances de você avançar em sua carreira aumentem.
+Postado por Cáren Cecília Baldo, às 17:57
+Categorias: Doutor Trabalho
+</body>
