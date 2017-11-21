@@ -34,11 +34,20 @@ public class Texto {
 		return this.termos;
 	}
 	
+	public boolean temTermo(String termo) {
+		for(int i = 0; i < termos.size(); i++) {
+			if(termos.get(i).getTermo().equals(termo)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public String toString() {
 		String res = "Texto [Categoria: " + categoria + " | Tipo: " + tipoTexto + "]";
 		
 		for(TermoRelevante termo : termos) {
-			res += "\n" + termo + "\n";
+			res += "\n" + termo;
 		}
 		return res;
 	}

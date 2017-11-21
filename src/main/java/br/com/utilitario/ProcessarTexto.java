@@ -126,36 +126,79 @@ public class ProcessarTexto {
 		outWriter.close();
 	}
 
-	/* Gera arquivo no formato do WEKA concatenando as listas */
+	/* Gera arquivo no formato do WEKA a partir da lista de textos */
 	public static void gerarBOW(List<Texto> textos, int k, String outfile) throws IOException {
-		List<TermoRelevante> termos = new ArrayList<TermoRelevante>();
+		List<String> termos = new ArrayList<String>();
+		
+		if(textos.size() == 0) {
+			return;
+		}
+		
+		/* Indice de deslocamento entre as listas de termos de cada texto */
+		int[] textIdx = new int[textos.size()];
+		int currIdx = 0;
 
-		FileWriter outWriter = new FileWriter(outfile);
-		PrintWriter out = new PrintWriter(outWriter);
+		/* Inicializa indices na posicao zero */
+		for(int i = 0; i < textIdx.length; i++) 
+			textIdx[i] = 0;
+		
+		 
+		
+		while(termos.size() < k) {
+			TermoRelevante termoAux = textos.get(0).getTermos().get(textIdx[0]);
+			currIdx = 0;
+			
+			for(int i = 0; i < textos.size(); i++) {
+				System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + "]");
 
-		/* Percorre todos os arquivos de texto procurando palavras com maior frequencia
-		 * Listas de termos ja ordenadas em ordem decrescente		 * */
+				if((textIdx[i] + 1) >= textos.get(i).getTermos().size()) {
+				continue;
+				}
+				
+				if(termos.contains(termoAux.getTermo())) {
+					textIdx[i]++;
+					continue;
+				}
+				
+				if(textos.get(i).getTermos().get(textIdx[i]).getRepeticao() > termoAux.getRepeticao()) {
+					if(termos.contains(termoAux.getTermo())) {
+						textIdx[i]++;
+						continue;
+					}
+			
+					/* Substituiu por termo com maior recorrencia */
+					termoAux = textos.get(i).getTermos().get(textIdx[i]);
+					currIdx = i;
+				}
+				termos.add(termoAux.getTermo());
+				textIdx[currIdx]++;
+			}
+		}
 		
 		
 		/* Gera lista dos k termos para arquivo */
+		FileWriter outWriter = new FileWriter(outfile);
+		PrintWriter out = new PrintWriter(outWriter);
+		
+		
+		System.out.println("Dentro do BOW!");
+		
 		out.println("@relation " + outfile);
 		
 		/* Imprime palavras */
-		for(TermoRelevante t : termos) {
+		for(String t : termos) {
 			// TODO: Processar espacos e outros caracteres especiais
-			out.println("@attribute " + t.getTermo().toUpperCase() + " integer");
+			out.println("@attribute " + t.toUpperCase() + " integer");
 		}
 		
 		out.println("@attribute classe {Esporte, Policia, Problema, Trabalhador}");
 		out.println("@data");
 		
-		for(TermoRelevante t : termos) {
-			out.println(t.getTermo());
+		for(String t : termos) {
+			System.out.println("Bla " + t);
+			out.println(t);
 		}
 		
 		outWriter.close();
 	}
-
-	
-	
 }
