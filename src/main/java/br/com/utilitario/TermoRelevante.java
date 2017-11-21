@@ -68,6 +68,12 @@ public class TermoRelevante implements Comparable {
 		return 0;
 	}
 	
+	public boolean equals(Object o) {
+		TermoRelevante t = (TermoRelevante)o;
+		
+		return t.getTermo().equals(this.termo);
+	}
+	
 	public String toString() {
 		return "[Termo: " + termo + " | Classificacao: " + classificacao 
 				+ " | Repeticao: " + this.repeticao + "]";

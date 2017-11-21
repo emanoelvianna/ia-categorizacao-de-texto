@@ -128,9 +128,10 @@ public class ProcessarTexto {
 	}
 
 	/* Gera arquivo no formato do WEKA a partir da lista de textos */
-	public static void gerarBOW(List<Texto> textos, int k, String outfile) throws IOException {
-		List<String> termos = new ArrayList<String>();
+	public static void gerarBOW(List<Texto> textos, int k, String outfile_treino, String outfile_teste) throws IOException {
+		List<TermoRelevante> termos = new ArrayList<TermoRelevante>();
 		boolean adicionarTermo = true;
+		boolean breakLoop = false;
 		
 		if(textos.size() == 0) {
 			return;
@@ -148,35 +149,36 @@ public class ProcessarTexto {
 		
 		while(termos.size() < k) {
 			adicionarTermo = true;
+			breakLoop = false;
 			TermoRelevante termoAux = textos.get(0).getTermos().get(textIdx[0]);
 			currIdx = 0;
 			
 			for(i = 0; i < textos.size(); i++) {
-				termoAux = textos.get(0).getTermos().get(textIdx[0]);
-				
-				System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + "]");
+				System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + " Aux=" + termoAux.getTermo() + "]");
 
+				/* Evitar IndexOutOfBounds */
 				if((textIdx[i] + 1) >= textos.get(i).getTermos().size()) {
 					//System.out.println("Lista esgotada!");
 					adicionarTermo = false;
 					break;
 				}
 				
-				if(termos.contains(textos.get(i).getTermos().get(textIdx[i]).getTermo())) {
-					//System.out.println("\tLista ja contem termo " + termoAux.getTermo());
-					textIdx[i]++;
-					adicionarTermo = false;
-					break;
-				}
-				
-				if(textos.get(i).getTermos().get(textIdx[i]).getRepeticao() >= termoAux.getRepeticao()) {
-					if(termos.contains(termoAux.getTermo())) {
+				for(int j = 0; j < termos.size(); j++) {
+					if(termos.get(j).getTermo().equals(textos.get(i).getTermos().get(textIdx[i]).getTermo())) {
+						//System.out.println("\tLista ja contem termo " + termoAux.getTermo());
 						textIdx[i]++;
 						adicionarTermo = false;
+						breakLoop = true;
 						break;
 					}
-			
-					/* Substituiu por termo com maior recorrencia */
+				}
+				
+				if(breakLoop) {
+					break;
+				}
+
+				if(textos.get(i).getTermos().get(textIdx[i]).getRepeticao() >= termoAux.getRepeticao()) {
+					/* Substitui por termo com maior recorrencia */
 					termoAux = textos.get(i).getTermos().get(textIdx[i]);
 					currIdx = i;
 				}
@@ -184,49 +186,73 @@ public class ProcessarTexto {
 			
 			if(adicionarTermo) {
 				System.out.println("*** Adicionando termo " + termoAux.getTermo());
-				termos.add(termoAux.getTermo());
+				termos.add(termoAux);
 				textIdx[currIdx]++;
 			}
 		}
 		
 		
 		/* Gera lista dos k termos para arquivo */
-		FileWriter outWriter = new FileWriter(outfile);
-		PrintWriter out = new PrintWriter(outWriter);
+		FileWriter outWriterTreino = new FileWriter(outfile_treino);
+		PrintWriter outTreino = new PrintWriter(outWriterTreino);
+
+		FileWriter outWriterTeste = new FileWriter(outfile_teste);
+		PrintWriter outTeste = new PrintWriter(outWriterTeste);
+
 		
-		out.println("@relation " + outfile);
+		outTreino.println("@relation PROCESSAR_TEXTO");
+		outTeste.println("@relation PROCESSAR_TEXTO");
+		
 		
 		/* Imprime palavras */
-		for(String t : termos) {
+		for(TermoRelevante t : termos) {
 			// TODO: Processar espacos e outros caracteres especiais
-			out.println("@attribute " + t.toUpperCase() + " integer");
+			outTreino.println("@attribute " + t.getTermo().toUpperCase() + " integer");
+			outTeste.println("@attribute " + t.getTermo().toUpperCase() + " integer");
 		}
 		
-		out.println("@attribute classe {ESPORTE, POLICIA, PROBLEMA, TRABALHADOR}");
-		out.println("@data");
+		outTreino.println("@attribute classe {ESPORTE, POLICIA, PROBLEMA, TRABALHADOR}");
+		outTeste.println("@attribute classe {ESPORTE, POLICIA, PROBLEMA, TRABALHADOR}");
+		outTreino.println("@data");
+		outTeste.println("@data");
 
 		
 		/* Percorre todos os textos e gera ARFF */
-
 		for(Texto t : textos) {
 			for(i = 0; i < termos.size(); i++) {
-				if(t.temTermo(termos.get(i))) {
-					out.print("1");
+				if(t.temTermo(termos.get(i).getTermo())) {
+					if(t.getTipoText() == TipoTexto.TREINO) {
+						outTreino.print("1");
+					} else if(t.getTipoText() == TipoTexto.TESTE) {
+						outTeste.print("1");
+					}
 				} else {
-					out.print("0");
-				}
-				if(i < termos.size() - 1) {
-					out.print(",");
+					if(t.getTipoText() == TipoTexto.TREINO) {
+						outTreino.print("0");
+					} else if(t.getTipoText() == TipoTexto.TESTE) {
+						outTeste.print("0");
+					}					
+				}				
+				
+				if(t.getTipoText() == TipoTexto.TREINO) {
+					if(i < termos.size() - 1) {
+						outTreino.print(",");
+					}
+				} else if(t.getTipoText() == TipoTexto.TESTE) {
+					if(i < termos.size() - 1) {
+						outTeste.print(",");
+					}
 				}
 			}
 			
 			if(t.getTipoText() == TipoTexto.TREINO) {
-				out.println(" " + t.getCategoriaTexto());
-			} else {
-				out.println(" ?");
+				outTreino.println(" " + t.getCategoriaTexto());
+			} else if(t.getTipoText() == TipoTexto.TESTE) {
+				outTeste.println(" ?");
 			}
 		}
 		
-		outWriter.close();
+		outWriterTreino.close();
+		outWriterTeste.close();
 	}
 }

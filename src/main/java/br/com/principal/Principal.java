@@ -16,24 +16,24 @@ public class Principal {
 		List<Texto> textos = new ArrayList<Texto>();
 		LerArquivoTexto lerArquivo = new LerArquivoTexto();
 		
-		/* Obtem lista de arquivos de treino */		
-		/* Esportes */
-		//textos.addAll(lerArquivo.carregarTextos("textos/teste", TipoTexto.TREINO, CategoriaTexto.TESTE));
+		/* Obtem lista de arquivos por aplicacao (treino/teste) */
+		//textos.addAll(lerArquivo.carregarTextos("textos/teste/treino", TipoTexto.TREINO, CategoriaTexto.POLICIA));
 		textos.addAll(lerArquivo.carregarTextos("textos/esporte/treino", TipoTexto.TREINO, CategoriaTexto.ESPORTE));
 		textos.addAll(lerArquivo.carregarTextos("textos/policia/treino", TipoTexto.TREINO, CategoriaTexto.POLICIA));
 		textos.addAll(lerArquivo.carregarTextos("textos/problema/treino", TipoTexto.TREINO, CategoriaTexto.PROBLEMA));
 		//textos.addAll(lerArquivo.carregarTextos("textos/trabalhador/treino", TipoTexto.TREINO, CategoriaTexto.TRABALHADOR));
-		
-		System.out.println("Textos size = " + textos.size());
-		
+
+		/* Textos de testes */
+		//textos.addAll(lerArquivo.carregarTextos("textos/teste/teste", TipoTexto.TESTE, CategoriaTexto.POLICIA));
+		textos.addAll(lerArquivo.carregarTextos("textos/esporte/teste", TipoTexto.TESTE, CategoriaTexto.ESPORTE));
+		textos.addAll(lerArquivo.carregarTextos("textos/policia/teste", TipoTexto.TESTE, CategoriaTexto.POLICIA));
+		textos.addAll(lerArquivo.carregarTextos("textos/problema/teste", TipoTexto.TESTE, CategoriaTexto.PROBLEMA));
+		//textos.addAll(lerArquivo.carregarTextos("textos/trabalhador/treino", TipoTexto.TESTE, CategoriaTexto.TRABALHADOR));
+
 		try {
-			ProcessarTexto.gerarBOW(textos, 80, "output/bow.txt");
+			ProcessarTexto.gerarBOW(textos, 120, "output/treino.arff", "output/teste.arff");
 		} catch(Exception e) {
 			System.out.println("Falha ao criar arquivo de saida do BOW!");
 		}
-		
-		
-		//for(Texto t : textos)
-		//	System.out.println(t);
 	}
 }
