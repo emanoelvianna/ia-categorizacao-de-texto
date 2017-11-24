@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import org.apache.commons.lang.math.NumberUtils;
-
 public class DividirTexto {
 
 	private static final String SEPARADOR = "TEXTO";
