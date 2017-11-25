@@ -1,5 +1,5 @@
 package br.com.utilitario.enumeracao;
 
 public enum TipoTexto {
-	TREINO, TESTE;
+	TREINO, TESTE, CLASSIFICA;
 }

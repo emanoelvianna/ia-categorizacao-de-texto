@@ -61,7 +61,7 @@ public class LerArquivoTexto {
 
 	
 	
-	public List<Texto> carregarTextos(String path, TipoTexto tipoTexto, CategoriaTexto categoriaTexto) {
+	public List<Texto> carregarTextos(String path, TipoTexto tipoTexto, CategoriaTexto categoriaTexto, int n) {
 		List<String> files = getFilesInFolder(path);
 		List<Texto> textos = new ArrayList<Texto>();
 		
@@ -80,7 +80,7 @@ public class LerArquivoTexto {
 			cogroo.analyze(document);
 			
 			Texto texto = new Texto(tipoTexto, categoriaTexto);
-			ProcessarTexto.listarTermos(document, texto);
+			ProcessarTexto.listarTermos(document, texto, n);
 			textos.add(texto);
 		}
 
