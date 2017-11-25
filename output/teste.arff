@@ -1,5 +1,6 @@
 @relation PROCESSAR_TEXTO
 @attribute ANOS integer
+@attribute AUXILIAR integer
 @attribute NÃO integer
 @attribute É integer
 @attribute SÃO integer
@@ -22,9 +23,11 @@
 @attribute MENORES integer
 @attribute CRIANÇAS integer
 @attribute ESTÃO integer
+@attribute MULHERES integer
 @attribute POLICIAMENTO integer
 @attribute VILA integer
 @attribute FÉ integer
+@attribute BAIRRO integer
 @attribute CAMINHÃO integer
 @attribute JÁ integer
 @attribute BOCA integer
@@ -32,10 +35,14 @@
 @attribute GAROTO integer
 @attribute MÃE integer
 @attribute ESTÁDIO integer
+@attribute CARGOS integer
+@attribute CONSTRUÇÃO integer
+@attribute CURSO integer
 @attribute POLICIAIS integer
 @attribute MEMÓRIA integer
 @attribute HISTÓRIA integer
 @attribute VOLTA integer
+@attribute PESSOA integer
 @attribute ESCOLA integer
 @attribute ANO integer
 @attribute ESQUINA integer
@@ -43,6 +50,9 @@
 @attribute CRIME integer
 @attribute ESTÁ integer
 @attribute MENINO integer
+@attribute ADMINISTRATIVO integer
+@attribute LIMPEZA integer
+@attribute TRABALHO integer
 @attribute RUAS integer
 @attribute AINDA integer
 @attribute FORAM integer
@@ -53,6 +63,8 @@
 @attribute LADRÕES integer
 @attribute PARTE integer
 @attribute SER integer
+@attribute TEMPO integer
+@attribute SEMPRE integer
 @attribute BOMBEIROS integer
 @attribute DROGAS integer
 @attribute APREENDIDOS integer
@@ -60,6 +72,13 @@
 @attribute CASOS integer
 @attribute CONSELHEIROS integer
 @attribute EXEMPLOS integer
+@attribute PRODUÇÃO integer
+@attribute FARMÁCIA integer
+@attribute ASSISTENTE integer
+@attribute TURMA integer
+@attribute SERÁ integer
+@attribute AVISO integer
+@attribute PRÉVIO integer
 @attribute CAL integer
 @attribute VAGA integer
 @attribute VIAS integer
@@ -87,6 +106,8 @@
 @attribute PARCERIA integer
 @attribute IDA integer
 @attribute VEZES integer
+@attribute PESSOAS integer
+@attribute POSSÍVEL integer
 @attribute FEIRA integer
 @attribute ALUNOS integer
 @attribute FORRO integer
@@ -98,32 +119,14 @@
 @attribute ENVOLVIDAS integer
 @attribute DIAS integer
 @attribute ASSÉDIO integer
-@attribute JOVENS integer
-@attribute MENINOS integer
-@attribute MISÉRIA integer
-@attribute SEMANA integer
-@attribute CUMPREM integer
-@attribute DADOS integer
-@attribute MEIO integer
-@attribute IRMÃOS integer
-@attribute PASSAR integer
-@attribute LIBERDADE integer
-@attribute DEPOIS integer
-@attribute INTERNAÇÃO integer
-@attribute CRIANÇA integer
-@attribute PODE integer
-@attribute ATOS integer
-@attribute JOGOS integer
-@attribute NEGATIVIDADE integer
-@attribute CIDADE integer
-@attribute DOMINGO integer
-@attribute BEM integer
-@attribute PARADA integer
 @attribute classe {ESPORTE, POLICIA, PROBLEMA, TRABALHADOR}
 @data
-1,1,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,1,1,0,0 ?
-0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0 ?
-1,1,1,1,0,0,1,0,0,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,1,0,0,1,1,1,1,1,0,0,0,0,1,0,1,0,1,1,1,1,0,1,1,1,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,0 ?
-0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ?
-1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0 ?
-1,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,1,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0 ?
+0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ?
+1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0 ?
+0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0 ?
+1,0,1,1,1,0,0,1,0,0,1,0,1,1,1,1,1,0,1,1,1,1,1,1,0,0,1,0,1,0,1,1,1,1,1,0,0,0,0,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1,0,1,1,1,0,0,0,0,0,1,1,0,0,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1 ?
+0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0 ?
+1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0 ?
+1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,1,0,1,0,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0 ?
+1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0 ?
+0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,0,1,0,0 ?
