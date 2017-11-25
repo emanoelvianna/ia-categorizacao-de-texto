@@ -145,8 +145,6 @@ public class ProcessarTexto {
 		for(i = 0; i < textIdx.length; i++) 
 			textIdx[i] = 0;
 		
-		 
-		
 		while(termos.size() < k) {
 			adicionarTermo = true;
 			breakLoop = false;
@@ -154,7 +152,7 @@ public class ProcessarTexto {
 			currIdx = 0;
 			
 			for(i = 0; i < textos.size(); i++) {
-				System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + " Aux=" + termoAux.getTermo() + "]");
+				//System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + " Aux=" + termoAux.getTermo() + "]");
 
 				/* Evitar IndexOutOfBounds */
 				if((textIdx[i] + 1) >= textos.get(i).getTermos().size()) {
@@ -185,7 +183,7 @@ public class ProcessarTexto {
 			}
 			
 			if(adicionarTermo) {
-				System.out.println("*** Adicionando termo " + termoAux.getTermo());
+				//System.out.println("*** Adicionando termo " + termoAux.getTermo());
 				termos.add(termoAux);
 				textIdx[currIdx]++;
 			}
