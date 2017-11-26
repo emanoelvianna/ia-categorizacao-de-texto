@@ -19,9 +19,11 @@ import br.com.utilitario.enumeracao.TipoTexto;
 public class LerArquivoTexto {
 
 	private LimparArquivoTexto limparArquivoTexto;
+	private Document document; 
 
 	public LerArquivoTexto() {
 		limparArquivoTexto = new LimparArquivoTexto();
+		document = new DocumentImpl();
 	}
 
 	
@@ -58,8 +60,6 @@ public class LerArquivoTexto {
 		
 		return files;
 	}
-
-	
 	
 	public List<Texto> carregarTextos(String path, TipoTexto tipoTexto, CategoriaTexto categoriaTexto, int n) {
 		List<String> files = getFilesInFolder(path);
@@ -67,13 +67,12 @@ public class LerArquivoTexto {
 		
 		/* configurações de idioma */
 		ComponentFactory factory = ComponentFactory.create(new Locale("pt", "BR"));
-		Analyzer cogroo = factory.createPipe();
-
-		/* processar texto */
-		Document document = new DocumentImpl();
-
+		
 		
 		for(String filePath : files) {
+			document = new DocumentImpl();
+			Analyzer cogroo = factory.createPipe();
+			
 			System.out.println("Carregando arquivo = " + filePath);
 			
 			document.setText(LerArquivoDeTexto(filePath));
@@ -83,7 +82,6 @@ public class LerArquivoTexto {
 			ProcessarTexto.listarTermos(document, texto, n);
 			textos.add(texto);
 		}
-
 		return textos;
 	}
 	

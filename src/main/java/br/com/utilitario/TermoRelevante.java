@@ -44,6 +44,10 @@ public class TermoRelevante implements Comparable {
 	public void repetiuTermo() {
 		this.repeticao++;
 	}
+
+	public void addRepeticao(int repeticao) {
+		this.repeticao += repeticao;
+	}	
 	
 	public int equals(TermoRelevante obj) {
 		return this.termo.compareToIgnoreCase(obj.getTermo());

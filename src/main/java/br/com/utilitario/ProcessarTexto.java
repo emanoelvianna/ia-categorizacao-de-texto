@@ -67,7 +67,7 @@ public class ProcessarTexto {
 	
 	private static boolean hasTermo(List<TermoRelevante> termos, String termo) {
 		for(int i = 0; i < termos.size(); i++) {
-			if(termos.get(i).getTermo().compareToIgnoreCase(termo) == 0) {
+			if(termos.get(i).getTermo().toLowerCase().equals(termo.toLowerCase())) {
 				termos.get(i).repetiuTermo();
 				return true;
 			} 
@@ -80,8 +80,6 @@ public class ProcessarTexto {
 	/* Processa um texto e retorna lista ordenada de termos relevantes baseado em frequencia */
 	@SuppressWarnings("unchecked")
 	public static void listarTermos(Document document, Texto texto, int n) {
-		//boolean termoEncontrado;
-
 		Sentence sentence = null;
 		Token token = null;
 		String termo = null;
@@ -104,7 +102,7 @@ public class ProcessarTexto {
 					if(n == 1) {
 						if(isValidClassificacao(1, classificacao)) {
 							if(!hasTermo(texto.getTermos(), termo)) {
-								texto.addTermo(new TermoRelevante(termo, classificacao));
+								texto.addTermo(new TermoRelevante(termo.toLowerCase(), classificacao));
 							}							
 						}
 					} else if(n == 2) {
@@ -128,7 +126,8 @@ public class ProcessarTexto {
 								classificacao = classificar(sentence.getTokens().get(idx2).getPOSTag());
 								
 								if(isValidClassificacao(2, classificacao)) {
-									texto.addTermo(new TermoRelevante(termo + " " + sentence.getTokens().get(idx2).getLemmas()[0],
+									texto.addTermo(new TermoRelevante(termo.toLowerCase() + " " 
+											+ sentence.getTokens().get(idx2).getLemmas()[0].toLowerCase(),
 											Classificacao.NULO));
 									break;
 								}
@@ -178,8 +177,8 @@ public class ProcessarTexto {
 									
 									if(isValidClassificacao(3, classificacao)) {
 										texto.addTermo(new TermoRelevante(termo + " "
-												+ sentence.getTokens().get(idx2).getLemmas()[0] + " "
-												+ sentence.getTokens().get(idx3).getLemmas()[0],
+												+ sentence.getTokens().get(idx2).getLemmas()[0].toLowerCase() + " "
+												+ sentence.getTokens().get(idx3).getLemmas()[0].toLowerCase(),
 												Classificacao.NULO));
 										break;
 									}
@@ -205,14 +204,12 @@ public class ProcessarTexto {
 		}
 		outWriter.close();
 	}
-
 	
 	
 	/* Gera arquivo no formato do WEKA a partir da lista de textos */
 	public static void gerarBOW(List<Texto> textos, int k, String outfile_treino, String outfile_teste) throws IOException {
 		List<TermoRelevante> termos = new ArrayList<TermoRelevante>();
 		boolean adicionarTermo = true;
-		boolean breakLoop = false;
 		
 		if(textos.size() == 0) {
 			return;
@@ -220,60 +217,41 @@ public class ProcessarTexto {
 		
 		/* Indice de deslocamento entre as listas de termos de cada texto */
 		int[] textIdx = new int[textos.size()];
-		int currIdx = 0, i;
-
-		/* Inicializa indices na posicao zero */
-		for(i = 0; i < textIdx.length; i++) 
-			textIdx[i] = 0;
 		
-		while(termos.size() < k) {
-			adicionarTermo = true;
-			breakLoop = false;
-			TermoRelevante termoAux = textos.get(0).getTermos().get(textIdx[0]);
-			currIdx = 0;
+		/* Inicializa indices na posicao zero */
+		for(int i = 0; i < textIdx.length; i++) 
+			textIdx[i] = 0;
+	
+		
+		for(int texto1_idx = 0; texto1_idx < textos.size(); texto1_idx++) {
+			if(textos.get(texto1_idx).getTipoText() != TipoTexto.TREINO) {
+				continue;
+			}
 			
-			for(i = 0; i < textos.size(); i++) {
-				//System.out.println("Processando termo " + textos.get(i).getTermos().get(textIdx[i]) + " [" + termos.size() + " Aux=" + termoAux.getTermo() + "]");
 
-				if(textos.get(i).getTipoText() != TipoTexto.TREINO) {
-					continue;
-				}
+			for(int termo1_idx = 0; termo1_idx < textos.get(texto1_idx).getTermos().size(); termo1_idx++) {
+				adicionarTermo = true;
 				
-				/* Evitar IndexOutOfBounds */
-				if((textIdx[i] + 1) >= textos.get(i).getTermos().size()) {
-					//System.out.println("Lista esgotada!");
-					adicionarTermo = false;
-					break;
-				}
-				
-				for(int j = 0; j < termos.size(); j++) {
-					if(termos.get(j).getTermo().equals(textos.get(i).getTermos().get(textIdx[i]).getTermo())) {
-						//System.out.println("\tLista ja contem termo " + termoAux.getTermo());
-						textIdx[i]++;
+				/* Verifica se nao existe na lista de termos */
+				for(int termo2_idx = 0; termo2_idx < termos.size(); termo2_idx++) {
+					if(termos.get(termo2_idx).getTermo().equals(textos.get(texto1_idx).getTermos().get(termo1_idx).getTermo())) {
+						termos.get(termo2_idx).addRepeticao(textos.get(texto1_idx).getTermos().get(termo1_idx).getRepeticao());
 						adicionarTermo = false;
-						breakLoop = true;
 						break;
 					}
 				}
 				
-				if(breakLoop) {
-					break;
+				if(adicionarTermo) {
+					termos.add(textos.get(texto1_idx).getTermos().get(termo1_idx));
 				}
-
-				if(textos.get(i).getTermos().get(textIdx[i]).getRepeticao() >= termoAux.getRepeticao()) {
-					/* Substitui por termo com maior recorrencia */
-					termoAux = textos.get(i).getTermos().get(textIdx[i]);
-					currIdx = i;
-				}
-			}
-			
-			if(adicionarTermo) {
-				//System.out.println("*** Adicionando termo " + termoAux.getTermo());
-				termos.add(termoAux);
-				textIdx[currIdx]++;
 			}
 		}
+
+		Collections.sort(termos);
+		list2file(termos, "output/debug/termos.txt");
 		
+		
+		int termos_size = k > termos.size() ? termos.size() : k;  
 		
 		/* Gera lista dos k termos para arquivo */
 		FileWriter outWriterTreino = new FileWriter(outfile_treino);
@@ -288,11 +266,9 @@ public class ProcessarTexto {
 		
 		
 		/* Imprime palavras */
-		for(TermoRelevante t : termos) {
-			outTreino.println("@attribute " + t.getTermo().replaceAll("\\s+","_").toUpperCase() + " integer");
-			outTeste.println("@attribute " + t.getTermo().replaceAll("\\s+","_").toUpperCase() + " integer");
-			//outTreino.println("@attribute " + t.getTermo().toUpperCase() + " integer");
-			//outTeste.println("@attribute " + t.getTermo().toUpperCase() + " integer");
+		for(int j = 0; j < termos_size; j++) {
+			outTreino.println("@attribute " + termos.get(j).getTermo().replaceAll("\\s+","_").toUpperCase() + " integer");
+			outTeste.println("@attribute " + termos.get(j).getTermo().replaceAll("\\s+","_").toUpperCase() + " integer");
 		}
 		
 		outTreino.println("@attribute classe {ESPORTE, POLICIA, PROBLEMA, TRABALHADOR}");
@@ -303,7 +279,7 @@ public class ProcessarTexto {
 		
 		/* Percorre todos os textos e gera ARFF */
 		for(Texto t : textos) {
-			for(i = 0; i < termos.size(); i++) {
+			for(int i = 0; i < termos_size; i++) {
 				if(t.temTermo(termos.get(i).getTermo())) {
 					if(t.getTipoText() == TipoTexto.TREINO) {
 						outTreino.print("1");
