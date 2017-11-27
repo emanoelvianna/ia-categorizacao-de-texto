@@ -7,22 +7,17 @@ public class TermoRelevante implements Comparable {
 	private String termo;
 	private Integer repeticao;
 	private Classificacao classificacao;
-	private Integer[] categorias;
+	private Texto texto;
 
 	public TermoRelevante() {
 		this.repeticao = 1;
 	}
 	
-	public TermoRelevante(String termo, Classificacao classificacao) {
+	public TermoRelevante(String termo, Classificacao classificacao, Texto texto) {
 		this.termo = termo;
 		this.repeticao = 1;
 		this.classificacao = classificacao;
-		this.categorias = new Integer[4];
-		
-		this.categorias[0] = 0;
-		this.categorias[1] = 0;
-		this.categorias[2] = 0;
-		this.categorias[3] = 0;
+		this.texto = texto;
 	}
 
 	public String getTermo() {
@@ -52,13 +47,9 @@ public class TermoRelevante implements Comparable {
 	public int equals(TermoRelevante obj) {
 		return this.termo.compareToIgnoreCase(obj.getTermo());
 	}
-
-	public void setCategoria(int idx, int valor) {
-		this.categorias[idx] = valor;
-	}
 	
-	public Integer[] getCategorias() {
-		return this.categorias;
+	public Texto getTexto() {
+		return this.texto;
 	}
 	
 	public int compareTo(Object o) {
@@ -80,6 +71,6 @@ public class TermoRelevante implements Comparable {
 	
 	public String toString() {
 		return "[Termo: " + termo + " | Classificacao: " + classificacao 
-				+ " | Repeticao: " + this.repeticao + "]";
+				+ " | Repeticao: " + this.repeticao + " | Texto: " + this.texto + "]";
 	}
 }

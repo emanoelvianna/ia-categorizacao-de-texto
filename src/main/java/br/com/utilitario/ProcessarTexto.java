@@ -102,8 +102,8 @@ public class ProcessarTexto {
 					if(n == 1) {
 						if(isValidClassificacao(1, classificacao)) {
 							if(!hasTermo(texto.getTermos(), termo)) {
-								texto.addTermo(new TermoRelevante(termo.toLowerCase(), classificacao));
-							}							
+								texto.addTermo(new TermoRelevante(termo.toLowerCase(), classificacao, texto));
+							}
 						}
 					} else if(n == 2) {
 						/* Encontra primeiro token valido */
@@ -128,7 +128,7 @@ public class ProcessarTexto {
 								if(isValidClassificacao(2, classificacao)) {
 									texto.addTermo(new TermoRelevante(termo.toLowerCase() + " " 
 											+ sentence.getTokens().get(idx2).getLemmas()[0].toLowerCase(),
-											Classificacao.NULO));
+											Classificacao.NULO, texto));
 									break;
 								}
 							}							
@@ -179,7 +179,7 @@ public class ProcessarTexto {
 										texto.addTermo(new TermoRelevante(termo + " "
 												+ sentence.getTokens().get(idx2).getLemmas()[0].toLowerCase() + " "
 												+ sentence.getTokens().get(idx3).getLemmas()[0].toLowerCase(),
-												Classificacao.NULO));
+												Classificacao.NULO, texto));
 										break;
 									}
 								}
@@ -249,8 +249,7 @@ public class ProcessarTexto {
 
 		Collections.sort(termos);
 		list2file(termos, "output/debug/termos.txt");
-		
-		
+				
 		int termos_size = k > termos.size() ? termos.size() : k;  
 		
 		/* Gera lista dos k termos para arquivo */
@@ -267,6 +266,11 @@ public class ProcessarTexto {
 		
 		/* Imprime palavras */
 		for(int j = 0; j < termos_size; j++) {
+			if(termos.get(j).getTexto().getTipoText() != TipoTexto.TREINO) {
+				/* Nao adiciona texto de teste e outros tipos nos atributos */
+				continue;
+			}
+			
 			outTreino.println("@attribute " + termos.get(j).getTermo().replaceAll("\\s+","_").toUpperCase() + " integer");
 			outTeste.println("@attribute " + termos.get(j).getTermo().replaceAll("\\s+","_").toUpperCase() + " integer");
 		}
